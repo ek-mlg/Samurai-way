@@ -1,0 +1,17 @@
+
+.Content {
+    margin-top: 20px;
+}
+
+.Max_Profile_img {
+    display: flex;
+    justify-content: center;
+}
+
+.Profile_img {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-origin: border-box;
+    width: 65%;
+    border-radius: 50px;
+}
