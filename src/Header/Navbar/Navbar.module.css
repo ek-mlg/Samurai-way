@@ -1,0 +1,24 @@
+
+.Nav {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    color: #000000;
+    font-size: 16px;
+    font-family: 'Poppins', serif;
+    font-weight: 400;
+}
+
+.Nav a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.Nav a.active {
+    color: #0059B2;
+    text-decoration: underline;
+}
+
+.Nav a:hover {
+    color: #58ACFF;
+}

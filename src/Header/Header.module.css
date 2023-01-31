@@ -1,5 +1,5 @@
 
-.Header {
+.header {
     padding-top: 20px;
     display: flex;
     align-items: center;
@@ -8,12 +8,6 @@
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
-.Logo {
+.logo {
     height: 35px;
-}
-
-.Nav {
-    display: flex;
-    justify-content: center;
-    gap: 20px
 }
