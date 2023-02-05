@@ -4,9 +4,14 @@ import './index.css';
 import App from './App';
 import {BrowserRouter} from "react-router-dom";
 
-ReactDOM.render(
-    <BrowserRouter>
-        <App/>
-    </BrowserRouter>,
-    document.getElementById('root')
-);
+import {store} from "./Redux/state";
+const rerender = () => {
+    ReactDOM.render(
+        <BrowserRouter>
+            <App/>
+        </BrowserRouter>,
+        document.getElementById('root')
+    );
+}
+store.subscribe(rerender)
+rerender()

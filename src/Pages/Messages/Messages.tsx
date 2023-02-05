@@ -1,23 +1,26 @@
 import React from 'react';
 import s from './Messages.module.css';
-import UserItem from "./MessagesItem/UserItem";
-import DialogItem from "./MessagesItem/DialogItem";
+import UserItem from "./MessagesItems/UserItem";
+import DialogItem from "./MessagesItems/DialogItem";
+import {MessagesPageDataType} from "../../types";
 
-const Messages = () => {
+
+const Messages:React.FC<MessagesPageDataType> = (props) => {
+
+    const {usersData, dialogsData} = props
+
+    const usersElements = usersData?.map((e) => <UserItem name={e.name} id={e.id}/>)
+
+    const dialogsElements = dialogsData?.map((e) => <DialogItem message={e.message}/>)
+
     return (
         <div className={s.dialogs}>
             <div className={s.users}>
-                <UserItem name='Ilya' id={'1'}/>
-                <UserItem name='Vitaliy' id={'2'}/>
-                <UserItem name='Mariya' id={'3'}/>
-                <UserItem name='Katerina' id={'4'}/>
-                <UserItem name='Manuk' id={'5'}/>
+                {usersElements}
             </div>
 
             <div className={s.messages}>
-                <DialogItem message={'Hi'}/>
-                <DialogItem message={'Yo'}/>
-                <DialogItem message={'Privet'}/>
+                {dialogsElements}
             </div>
         </div>
     );

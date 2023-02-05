@@ -1,17 +1,23 @@
 import React from 'react';
 
-type PostType = {
+type PostPropsType = {
     message: string,
+    likeCounter: number
 }
 
-const Post:React.FC<PostType> = (props) => {
+const Post: React.FC<PostPropsType> = (props) => {
 
-    const {message} = props
+    const {message, likeCounter} = props
 
     return (
-        <div>
-            {message}
-        </div>
+        <>
+            <div>
+                {message}
+            </div>
+            <div>
+                {likeCounter}
+            </div>
+        </>
     );
 };
 

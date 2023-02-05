@@ -1,9 +1,10 @@
 import React from 'react';
 
 type MessagePropsType = {
-    message: string
+    message: string,
+
 }
-const DialogItem:React.FC<MessagePropsType> = ({message}) => {
+const DialogItem: React.FC<MessagePropsType> = ({message}) => {
 
     return (
         <div>{message}</div>
