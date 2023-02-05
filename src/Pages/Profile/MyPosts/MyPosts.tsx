@@ -1,33 +1,29 @@
 import React, {ChangeEvent} from 'react';
 import Post from "./Post/Post";
-import {PostDataType, StoreType} from "../../../types";
+import {ActionsType, PostDataType, StoreType} from "../../../types";
 import s from "./MyPosts.module.css";
 
 type MyPostsPropsType = {
     postData: PostDataType[],
-    addPostCallback: (postText: string) => void,
     valuePostText: string
-    changePostText: (newPostText: string) => void,
+    dispatch: (action: ActionsType) => void
 }
 
-const MyPosts: React.FC<MyPostsPropsType> = ({postData, addPostCallback, valuePostText, changePostText}) => {
+const MyPosts: React.FC<MyPostsPropsType> = ({postData,valuePostText, dispatch}) => {
 
     const postElement = postData.map((e) => <Post key={e.id} message={e.message} likeCounter={e.likeCounter}/>)
 
     const addPost = () => {
-        addPostCallback(valuePostText)
-        changePostText("")
+        dispatch({type: "ADD-POST", postText: valuePostText})
     }
 
     const postOnChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        changePostText(e.currentTarget.value)
-        console.log(e.currentTarget.value)
+        const newText = e.currentTarget.value
+        dispatch({type: "ADD-CHANGE-POST", newText: newText})
     }
     const postOnFocus = () => {
-        changePostText('')
     }
     const postOnBlur = () => {
-        changePostText('test')
     }
 
 

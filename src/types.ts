@@ -32,9 +32,22 @@ export type StateType = {
 export type StoreType = {
     _stateData: StateType,
     _rerender: () => void,
-    changePostText: (newText: string) => void,
-    addPost: (postText: string) => void,
+    _changePostText: (newText: string) => void,
+    _addPost: (postText: string) => void,
     subscribe: (callback: () => void) => void,
     getState: () => StateType
+    dispatch: (action: ActionsType) => void
 }
+
+type AddPostActionType = {
+    type: 'ADD-POST',
+    postText: string
+}
+
+type AddChangePostActionType = {
+    type: 'ADD-CHANGE-POST',
+    newText: string
+}
+
+export type ActionsType = AddPostActionType | AddChangePostActionType
 
