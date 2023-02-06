@@ -1,4 +1,5 @@
-import {addPostAC, changePostAC, newMessageTextAC, sendMessageAC} from "./Redux/state";
+import {ProfileActionsType} from "./Redux/profilePage-reducer";
+import {MessageActionsType} from "./Redux/messagesPage-reducer";
 
 export type PostDataType = {
     id: string,
@@ -38,14 +39,16 @@ export type StateType = {
 export type StoreType = {
     _stateData: StateType,
     _rerender: () => void,
-    _changePostText: (newText: string) => void,
+   /* _changePostText: (newText: string) => void,
     _addPost: (postText: string) => void,
     _newMessageText: (newMessage: string) => void,
-    _sendMessage: (sendMessage: string) => void,
+    _sendMessage: (sendMessage: string) => void,*/
     subscribe: (callback: () => void) => void,
     getState: () => StateType
     dispatch: (action: ActionsType) => void
 }
+
+export type ActionsType = ProfileActionsType | MessageActionsType
 
 /*export type AddPostActionType = {
     type: 'ADD-POST',
@@ -53,9 +56,6 @@ export type StoreType = {
 }*/
 
 
-export type ActionsType =
-    ReturnType<typeof addPostAC> |
-    ReturnType<typeof changePostAC> |
-    ReturnType<typeof newMessageTextAC> |
-    ReturnType<typeof sendMessageAC>
+
+
 

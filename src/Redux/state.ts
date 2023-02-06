@@ -1,5 +1,6 @@
-import {v1} from "uuid";
 import {StoreType} from "../types";
+import {ProfilePageReducer} from "./profilePage-reducer";
+import {MessagesPageReducer} from "./messagesPage-reducer";
 
 export let store: StoreType = {
     _stateData: {
@@ -33,7 +34,7 @@ export let store: StoreType = {
             placeholderPost: 'Please, enter your post'
         }
     },
-    _addPost(postText: string) {
+    /*_addPost(postText: string) {
         const newPost = {
             id: v1(),
             message: postText,
@@ -59,7 +60,7 @@ export let store: StoreType = {
         this._stateData.messagesPage.valueMessageText = ''
         this._stateData.messagesPage.dialogsData.push(newMessage)
         this._rerender()
-    },
+    },*/
 
     _rerender() {
         console.log("Hello")
@@ -73,7 +74,13 @@ export let store: StoreType = {
     },
 
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
+
+        ProfilePageReducer(this._stateData.profilePage, action)
+        MessagesPageReducer(this._stateData.messagesPage, action)
+
+        this._rerender()
+
+        /*if (action.type === 'ADD-POST') {
             this._addPost(action.postText)
 
         } else if (action.type === 'ADD-CHANGE-POST') {
@@ -83,11 +90,11 @@ export let store: StoreType = {
             this._newMessageText(action.newMessage)
         } else if (action.type === 'SEND-MESSAGE') {
             this._sendMessage(action.sendMessage)
-        }
+        }*/
     }
 }
 
-export const addPostAC = (postText: string) => {
+/*export const addPostAC = (postText: string) => {
     return {
         type: "ADD-POST",
         postText: postText
@@ -99,8 +106,8 @@ export const changePostAC = (newText: string) => {
         type: "ADD-CHANGE-POST",
         newText: newText
     } as const
-}
-
+}*/
+/*
 export const newMessageTextAC = (newMessage: string) => {
     return {
         type: "ADD-TEXT-MESSAGE",
@@ -112,10 +119,4 @@ export const sendMessageAC = (sendMessage: string) => {
         type: "SEND-MESSAGE",
         sendMessage: sendMessage
     } as const
-}
-
-
-
-
-
-
+}*/

@@ -3,7 +3,7 @@ import s from './Messages.module.css';
 import UserItem from "./MessagesItems/UserItem";
 import DialogItem from "./MessagesItems/DialogItem";
 import {ActionsType, MessagesPageDataType} from "../../types";
-import {newMessageTextAC, sendMessageAC} from "../../Redux/state";
+import {newMessageTextAC, sendMessageAC} from "../../Redux/messagesPage-reducer";
 
 type MessagePropsType = {
     messagesPageData: MessagesPageDataType,

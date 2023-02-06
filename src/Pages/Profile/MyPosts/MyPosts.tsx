@@ -2,7 +2,7 @@ import React, {ChangeEvent} from 'react';
 import Post from "./Post/Post";
 import {ActionsType, PostDataType, StoreType} from "../../../types";
 import s from "./MyPosts.module.css";
-import {addPostAC, changePostAC} from "../../../Redux/state";
+import {addPostAC, changePostAC} from "../../../Redux/profilePage-reducer";
 
 type MyPostsPropsType = {
     postData: PostDataType[],
@@ -23,7 +23,7 @@ const MyPosts: React.FC<MyPostsPropsType> = (props) => {
     }
 
     const addPost = () => {
-        dispatch(addPostAC(valuePostText))
+        dispatch(addPostAC(valuePostText));
     }
 
     return (
