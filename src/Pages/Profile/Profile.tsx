@@ -15,14 +15,12 @@ export const Profile:React.FC<ProfilePropsType> = (props) => {
     const postData = state.profilePage.postData
     const valuePostText = state.profilePage.valuePostText
     const dispatch = props.store.dispatch.bind(props.store)
-    /*const addPostCallback = props.store.addPost.bind(props.store)
-    const changePostText = props.store.changePostText.bind(props.store)*/
-
+    const placeholderPost = state.profilePage.placeholderPost
 
     return (
         <div className={'Content'}>
             <ProfileInfo />
-            <MyPosts postData={postData} valuePostText={valuePostText} dispatch={dispatch}/>
+            <MyPosts postData={postData} valuePostText={valuePostText} dispatch={dispatch} placeholderPost={placeholderPost}/>
         </div>
     );
 };

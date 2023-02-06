@@ -13,11 +13,12 @@ type PagesPropsType = {
     store: StoreType
 }
 
-export const Pages:React.FC<PagesPropsType>= (props) => {
+export const Pages: React.FC<PagesPropsType> = (props) => {
 
     const state = props.store.getState()
-    const dialogsData = state.messagesPage.dialogsData
-    const usersData = state.messagesPage.usersData
+
+    const messagesPageData = state.messagesPage
+    const dispatch = props.store.dispatch.bind(props.store)
 
     const params = useParams<'id'>()
 
@@ -26,11 +27,12 @@ export const Pages:React.FC<PagesPropsType>= (props) => {
             <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
 
             <Route path={'/profile'} element={<Profile store={store}/>}/>
-            <Route path={'/messages'} element={<Messages dialogsData={dialogsData} usersData={usersData}/>}/>
+            <Route path={'/messages'} element={<Messages dispatch={dispatch} messagesPageData={messagesPageData}/>}/>
             <Route path={'/news'} element={<News/>}/>
             <Route path={'/music'} element={<Music/>}/>
             <Route path={'/settings'} element={<Settings/>}/>
-            <Route path={'/messages/:id'} element={<Messages dialogsData={dialogsData} usersData={usersData}/>}/>
+            <Route path={'/messages/:id'}
+                   element={<Messages dispatch={dispatch} messagesPageData={messagesPageData}/>}/>
 
             <Route path={'/*'} element={<Error404/>}/>
         </Routes>

@@ -7,7 +7,9 @@ type MessagePropsType = {
 const DialogItem: React.FC<MessagePropsType> = ({message}) => {
 
     return (
-        <div>{message}</div>
+        <div>
+            <div>{message}</div>
+        </div>
     );
 };
 

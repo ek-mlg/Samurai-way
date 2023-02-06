@@ -17,7 +17,10 @@ export let store: StoreType = {
                 {id: "1", message: 'Hi'},
                 {id: "2", message: 'Yo'},
                 {id: "3", message: 'Privet'},
-            ]
+            ],
+
+            valueMessageText: "",
+            placeholderMessage: 'Please, enter your message'
         },
 
         profilePage: {
@@ -26,7 +29,8 @@ export let store: StoreType = {
                 {id: "2", message: "This my first post!", likeCounter: 5},
                 {id: "3", message: "React", likeCounter: 23}
             ],
-            valuePostText: "Please, enter your text"
+            valuePostText: "",
+            placeholderPost: 'Please, enter your post'
         }
     },
     _addPost(postText: string) {
@@ -35,12 +39,25 @@ export let store: StoreType = {
             message: postText,
             likeCounter: 0
         }
+        this._stateData.profilePage.valuePostText = ''
         this._stateData.profilePage.postData.push(newPost)
         this._rerender()
     },
-
     _changePostText(newText: string) {
         this._stateData.profilePage.valuePostText = newText
+        this._rerender()
+    },
+    _newMessageText(newMessage: string) {
+        this._stateData.messagesPage.valueMessageText = newMessage
+        this._rerender()
+    },
+    _sendMessage(messageText: string) {
+        const newMessage = {
+            id: v1(),
+            message: messageText
+        }
+        this._stateData.messagesPage.valueMessageText = ''
+        this._stateData.messagesPage.dialogsData.push(newMessage)
         this._rerender()
     },
 
@@ -61,9 +78,42 @@ export let store: StoreType = {
 
         } else if (action.type === 'ADD-CHANGE-POST') {
             this._changePostText(action.newText)
+
+        } else if (action.type === 'ADD-TEXT-MESSAGE') {
+            this._newMessageText(action.newMessage)
+        } else if (action.type === 'SEND-MESSAGE') {
+            this._sendMessage(action.sendMessage)
         }
     }
 }
+
+export const addPostAC = (postText: string) => {
+    return {
+        type: "ADD-POST",
+        postText: postText
+    } as const
+}
+
+export const changePostAC = (newText: string) => {
+    return {
+        type: "ADD-CHANGE-POST",
+        newText: newText
+    } as const
+}
+
+export const newMessageTextAC = (newMessage: string) => {
+    return {
+        type: "ADD-TEXT-MESSAGE",
+        newMessage: newMessage
+    } as const
+}
+export const sendMessageAC = (sendMessage: string) => {
+    return {
+        type: "SEND-MESSAGE",
+        sendMessage: sendMessage
+    } as const
+}
+
 
 
 
