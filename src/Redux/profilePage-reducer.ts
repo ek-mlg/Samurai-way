@@ -1,13 +1,21 @@
-import React from 'react';
 import {v1} from "uuid";
-import {ActionsType, ProfilePageType, StateType, StoreType} from "../types";
-
+import {ActionsType, ProfilePageType} from "../types";
 
 export type ProfileActionsType =
     ReturnType<typeof addPostAC> |
     ReturnType<typeof changePostAC>
 
-export const ProfilePageReducer = (state: ProfilePageType, action: ActionsType) => {
+const initialState = {
+    postData: [
+        {id: "1", message: "Hello World!", likeCounter: 12},
+        {id: "2", message: "This my first post!", likeCounter: 5},
+        {id: "3", message: "React", likeCounter: 23}
+    ],
+    valuePostText: "",
+    placeholderPost: 'Please, enter your post'
+}
+
+export const ProfilePageReducer = (state = initialState, action: ActionsType) => {
 
     switch (action.type) {
 

@@ -1,6 +1,6 @@
 import React, {ChangeEvent} from 'react';
 import Post from "./Post/Post";
-import {ActionsType, PostDataType, StoreType} from "../../../types";
+import {ActionsType, PostDataType} from "../../../types";
 import s from "./MyPosts.module.css";
 import {addPostAC, changePostAC} from "../../../Redux/profilePage-reducer";
 
@@ -13,7 +13,7 @@ type MyPostsPropsType = {
 
 const MyPosts: React.FC<MyPostsPropsType> = (props) => {
 
-    const {postData,valuePostText, dispatch, placeholderPost} = props
+    const {postData, valuePostText, dispatch, placeholderPost} = props
 
     const postElement = postData.map((e) => <Post key={e.id} message={e.message} likeCounter={e.likeCounter}/>)
 

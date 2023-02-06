@@ -1,5 +1,5 @@
 import React from 'react';
-import {Navigate, Route, Routes, useParams} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import {Profile} from "./Profile/Profile";
 import Messages from "./Messages/Messages";
 import News from "./News/News";
@@ -20,7 +20,7 @@ export const Pages: React.FC<PagesPropsType> = (props) => {
     const messagesPageData = state.messagesPage
     const dispatch = props.store.dispatch.bind(props.store)
 
-    const params = useParams<'id'>()
+    // const params = useParams<'id'>()
 
     return (
         <Routes>
