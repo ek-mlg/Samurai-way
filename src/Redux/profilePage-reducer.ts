@@ -9,28 +9,22 @@ export type ProfileActionsType =
 
 export const ProfilePageReducer = (state: ProfilePageType, action: ActionsType) => {
 
-    /*switch (action.type) {
-        case 'ADD-POST': {
+    switch (action.type) {
+
+        case 'ADD-POST':
             let newPost = {id: v1(), message: action.postText, likeCounter: 0}
-            state.profilePage.valuePostText = ''
-            state.profilePage.postData.push(newPost)
-        }
-    }*/
+            state.valuePostText = ''
+            state.postData.push(newPost)
+            return state;
 
-    if (action.type === 'ADD-POST') {
-        const newPost = {
-            id: v1(),
-            message: action.postText,
-            likeCounter: 0
-        }
-        state.valuePostText = ''
-        state.postData.push(newPost)
+        case 'ADD-CHANGE-POST':
+            state.valuePostText = action.newText
+            return state;
 
-    } else if (action.type === 'ADD-CHANGE-POST') {
-        state.valuePostText = action.newText
+        default:
+            return state;
     }
-    return state;
-};
+}
 
 export const addPostAC = (postText: string) => {
     return {
