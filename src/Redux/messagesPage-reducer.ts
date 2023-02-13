@@ -44,6 +44,7 @@ export const MessagesPageReducer = (state: InitialStateType = initialState, acti
             stateCopy.dialogsData = [...state.dialogsData]
             stateCopy.dialogsData.push(newMessage)
             stateCopy.valueMessageText = ''
+
             return stateCopy
 
         case 'ADD-TEXT-MESSAGE':

@@ -13,7 +13,6 @@ type MapDispatchPropsType = {
 export type MessagesPropsType = InitialStateType & MapDispatchPropsType
 
 const mapStateToProps = (state: AppRootStateType): InitialStateType => {
-    console.log(state.messagesPage.valueMessageText)
     return {
         placeholderMessage: state.messagesPage.placeholderMessage,
         dialogsData: state.messagesPage.dialogsData,
