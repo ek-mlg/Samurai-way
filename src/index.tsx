@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {BrowserRouter} from "react-router-dom";
-import {Provider} from "./StoreContext";
 import {store} from "./Redux/redux-store";
+import {Provider} from "react-redux";
 
-const rerender = () => {
+
     ReactDOM.render(
         <BrowserRouter>
             <Provider store={store}>
@@ -15,7 +15,6 @@ const rerender = () => {
         </BrowserRouter>
 ,
 document.getElementById('root')
-);
-}
-store.subscribe(rerender)
-rerender()
+    );
+
+

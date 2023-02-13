@@ -1,6 +1,50 @@
-import {StoreType} from "../types";
-import {ProfilePageReducer} from "./profilePage-reducer";
-import {MessagesPageReducer} from "./messagesPage-reducer";
+import {ProfileActionsType} from "./profilePage-reducer";
+import {MessageActionsType} from "./messagesPage-reducer";
+
+export type ActionsType = ProfileActionsType | MessageActionsType
+
+type PostDataType = {
+    id: string,
+    message: string,
+    likeCounter: number,
+}
+
+type DialogsDataPropsType = {
+    id: string,
+    message: string
+}
+
+type UsersDataPropsType = {
+    id: string,
+    name: string
+}
+
+type ProfilePageType = {
+    postData: PostDataType[]
+    valuePostText: string
+    placeholderPost: string
+}
+
+type MessagesPageDataType = {
+    usersData: UsersDataPropsType[],
+    dialogsData: DialogsDataPropsType[],
+    valueMessageText: string,
+    placeholderMessage: string,
+}
+
+
+type StateType = {
+    messagesPage: MessagesPageDataType,
+    profilePage: ProfilePageType
+}
+
+type StoreType = {
+    _stateData: StateType,
+    _rerender: () => void,
+    subscribe: (callback: () => void) => void,
+    getState: () => StateType
+    dispatch: (action: ActionsType) => void
+}
 
 export let store: StoreType = {
     _stateData: {
@@ -50,8 +94,8 @@ export let store: StoreType = {
 
     dispatch(action) {
 
-        ProfilePageReducer(this._stateData.profilePage, action)
-        MessagesPageReducer(this._stateData.messagesPage, action)
+        /*ProfilePageReducer(this._stateData.profilePage, action)
+        MessagesPageReducer(this._stateData.messagesPage, action)*/
 
         this._rerender()
     }

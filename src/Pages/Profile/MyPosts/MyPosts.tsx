@@ -1,17 +1,9 @@
 import React, {ChangeEvent} from 'react';
 import Post from "./Post/Post";
-import {PostDataType} from "../../../types";
 import s from "./MyPosts.module.css";
+import {MyPostPropsType} from "./MyPostsContainer";
 
-type MyPostsPropsType = {
-    postData: PostDataType[],
-    valuePostText: string,
-    placeholderPost: string,
-    updateNewPostText: (newText: string)=> void,
-    addPostCallback: (valuePostText: string) => void
-}
-
-const MyPosts: React.FC<MyPostsPropsType> = (props) => {
+const MyPosts: React.FC<MyPostPropsType> = (props) => {
 
     const {updateNewPostText, addPostCallback, postData, valuePostText, placeholderPost} = props
 
@@ -20,6 +12,7 @@ const MyPosts: React.FC<MyPostsPropsType> = (props) => {
     const postOnChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const newText = e.currentTarget.value
         updateNewPostText(newText)
+        console.log(e.currentTarget.value)
     }
 
     const addPost = () => {

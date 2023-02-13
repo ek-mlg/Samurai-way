@@ -1,38 +1,37 @@
 import React from 'react';
 import MyPosts from "./MyPosts";
-import {addPostAC, changePostAC} from "../../../Redux/profilePage-reducer";
-import {StoreContext} from "../../../StoreContext";
+import {addPostAC, changePostAC, InitialStateType} from "../../../Redux/profilePage-reducer";
+import {connect} from "react-redux";
+import {AppRootStateType} from "../../../Redux/redux-store";
+import {Dispatch} from "redux";
 
 
-const MyPostsContainer = () => {
+type MapDispatchPropsType = {
+    updateNewPostText: (newText: string) => void,
+    addPostCallback: (valuePostText: string) => void
+}
 
-    return (
-        <StoreContext.Consumer>
-            {
-                (store) => {
-                    const state = store.getState()
-                    const postData = state.profilePage.postData
-                    const valuePostText = state.profilePage.valuePostText
-                    const placeholderPost = state.profilePage.placeholderPost
+export type MyPostPropsType = InitialStateType & MapDispatchPropsType
 
-                    const updateNewPostText = (newText: string) => {
-                        store.dispatch(changePostAC(newText))
-                    }
-                    const addPostCallback = (valuePostText: string) => {
-                        store.dispatch(addPostAC(valuePostText))
-                    }
+const mapStateToProps = (state: AppRootStateType): InitialStateType => {
+    return {
+        postData: state.profilePage.postData,
+        valuePostText: state.profilePage.valuePostText,
+        placeholderPost: state.profilePage.placeholderPost
+    }
+}
 
-                    return (
-                        <MyPosts updateNewPostText={updateNewPostText}
-                                 addPostCallback={addPostCallback}
-                                 postData={postData}
-                                 valuePostText={valuePostText}
-                                 placeholderPost={placeholderPost}/>
-                    )
-                }
-            }
-        </StoreContext.Consumer>
-    );
-};
+const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
+    return {
+        updateNewPostText: (newText: string) => {
+            dispatch(changePostAC(newText))
+        },
+        addPostCallback: (valuePostText: string) => {
+            dispatch(addPostAC(valuePostText))
+        }
 
+    }
+}
+
+const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);
 export default MyPostsContainer;

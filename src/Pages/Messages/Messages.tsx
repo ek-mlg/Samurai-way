@@ -2,18 +2,9 @@ import React, {ChangeEvent} from 'react';
 import s from './Messages.module.css';
 import UserItem from "./MessagesItems/UserItem";
 import DialogItem from "./MessagesItems/DialogItem";
-import {DialogsDataPropsType, UsersDataPropsType} from "../../types";
+import {MessagesPropsType} from "./MessagesContainer";
 
-type MessagePropsType = {
-    usersData: UsersDataPropsType[],
-    dialogsData: DialogsDataPropsType[],
-    valueMessageText: string,
-    placeholderMessage: string,
-    newMessageText: (newMessage: string)=> void,
-    sendMessage: (valueMessageText: string)=> void
-}
-
-const Messages:React.FC<MessagePropsType> = (props) => {
+const Messages:React.FC<MessagesPropsType> = (props) => {
 
     const {usersData, dialogsData, valueMessageText, placeholderMessage, newMessageText, sendMessage} = props
 

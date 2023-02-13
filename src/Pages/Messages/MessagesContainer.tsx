@@ -1,54 +1,38 @@
 import React from 'react';
 import Messages from "./Messages";
-import {newMessageTextAC, sendMessageAC} from "../../Redux/messagesPage-reducer";
-import {StoreContext} from "../../StoreContext";
+import {InitialStateType, MessageActionsType, newMessageTextAC, sendMessageAC} from "../../Redux/messagesPage-reducer";
+import {connect} from "react-redux";
+import {AppRootStateType} from "../../Redux/redux-store";
+import {Dispatch} from "redux";
 
-const MessagesContainer = () => {
+type MapDispatchPropsType = {
+    sendMessage: (valueMessageText: string) => void,
+    newMessageText: (newMessage: string) => void
+}
 
-    /*const newMessageText = (newMessage: string) => {
-        store.dispatch(newMessageTextAC(newMessage))
+export type MessagesPropsType = InitialStateType & MapDispatchPropsType
+
+const mapStateToProps = (state: AppRootStateType): InitialStateType => {
+    console.log(state.messagesPage.valueMessageText)
+    return {
+        placeholderMessage: state.messagesPage.placeholderMessage,
+        dialogsData: state.messagesPage.dialogsData,
+        usersData: state.messagesPage.usersData,
+        valueMessageText: state.messagesPage.valueMessageText
     }
+}
 
-    const sendMessage = (valueMessageText: string) => {
-        store.dispatch(sendMessageAC(valueMessageText))
-    }*/
+const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
+    return {
+        sendMessage: (valueMessageText: string) => {
+            dispatch(sendMessageAC(valueMessageText))
+        },
+        newMessageText: (newMessage: string) => {
+            dispatch(newMessageTextAC(newMessage))
+        }
+    }
+}
 
-    /*  const state = store.getState()
-
-      const placeholderMessage = state.messagesPage.placeholderMessage
-      const dialogsData = state.messagesPage.dialogsData
-      const usersData = state.messagesPage.usersData
-      const valueMessageText = state.messagesPage.valueMessageText*/
-
-    return (
-        <StoreContext.Consumer>
-            {
-                (store) => {
-                    const state = store.getState()
-                    const placeholderMessage = state.messagesPage.placeholderMessage
-                    const dialogsData = state.messagesPage.dialogsData
-                    const usersData = state.messagesPage.usersData
-                    const valueMessageText = state.messagesPage.valueMessageText
-
-                    const newMessageText = (newMessage: string) => {
-                        store.dispatch(newMessageTextAC(newMessage))
-                    }
-
-                    const sendMessage = (valueMessageText: string) => {
-                        store.dispatch(sendMessageAC(valueMessageText))
-                    }
-                    return (
-                        <Messages newMessageText={newMessageText}
-                                  sendMessage={sendMessage}
-                                  placeholderMessage={placeholderMessage}
-                                  dialogsData={dialogsData}
-                                  usersData={usersData}
-                                  valueMessageText={valueMessageText}/>
-                    )
-                }
-            }
-        </StoreContext.Consumer>
-    )
-};
+const MessagesContainer = connect(mapStateToProps, mapDispatchToProps)(Messages);
 
 export default MessagesContainer;
