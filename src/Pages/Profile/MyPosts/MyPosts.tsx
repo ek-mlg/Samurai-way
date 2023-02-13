@@ -4,8 +4,6 @@ import {PostDataType} from "../../../types";
 import s from "./MyPosts.module.css";
 
 type MyPostsPropsType = {
-    /*dispatch: (action: ActionsType) => void,*/
-
     postData: PostDataType[],
     valuePostText: string,
     placeholderPost: string,
@@ -22,13 +20,10 @@ const MyPosts: React.FC<MyPostsPropsType> = (props) => {
     const postOnChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const newText = e.currentTarget.value
         updateNewPostText(newText)
-        /*dispatch(changePostAC(newText))*/
-        /*changePostText(e.currentTarget.value)*/
     }
 
     const addPost = () => {
         addPostCallback(valuePostText)
-        /*dispatch(addPostAC(valuePostText));*/
     }
 
     return (

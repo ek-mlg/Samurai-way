@@ -11,7 +11,7 @@ export const Profile = () => {
     return (
         <div className={s.Container}>
             <ProfileInfo />
-            <MyPostsContainer store={store}/>
+            <MyPostsContainer/>
         </div>
     );
 };

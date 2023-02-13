@@ -28,7 +28,9 @@ export let store: StoreType = {
             postData: [
                 {id: "1", message: "Hello World!", likeCounter: 12},
                 {id: "2", message: "This my first post!", likeCounter: 5},
-                {id: "3", message: "React", likeCounter: 23}
+                {id: "3", message: "React", likeCounter: 23},
+                {id: "3", message: "i'm state.ts", likeCounter: 10}
+
             ],
             valuePostText: "",
             placeholderPost: 'Please, enter your post'

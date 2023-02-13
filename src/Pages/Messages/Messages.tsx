@@ -2,12 +2,9 @@ import React, {ChangeEvent} from 'react';
 import s from './Messages.module.css';
 import UserItem from "./MessagesItems/UserItem";
 import DialogItem from "./MessagesItems/DialogItem";
-import {ActionsType, DialogsDataPropsType, MessagesPageDataType, StoreType, UsersDataPropsType} from "../../types";
-import {newMessageTextAC, sendMessageAC} from "../../Redux/messagesPage-reducer";
+import {DialogsDataPropsType, UsersDataPropsType} from "../../types";
 
 type MessagePropsType = {
-    /*store: MessagesPageDataType,*/
-    /*dispatch: (action: ActionsType)=> void*/
     usersData: UsersDataPropsType[],
     dialogsData: DialogsDataPropsType[],
     valueMessageText: string,
@@ -26,12 +23,10 @@ const Messages:React.FC<MessagePropsType> = (props) => {
 
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const newMessage = (e.currentTarget.value)
-        // dispatch(newMessageTextAC(newMessage))
         newMessageText(newMessage)
 
     }
     const onClickHandler = () => {
-        // dispatch(sendMessageAC(store.valueMessageText))
         sendMessage(valueMessageText)
     }
 

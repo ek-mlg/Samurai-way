@@ -23,12 +23,12 @@ export const Pages = () => {
             <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
 
             <Route path={'/profile'} element={<Profile />}/>
-            <Route path={'/messages'} element={<MessagesContainer store={store}/>}/>
+            <Route path={'/messages'} element={<MessagesContainer/>}/>
             <Route path={'/news'} element={<News/>}/>
             <Route path={'/music'} element={<Music/>}/>
             <Route path={'/settings'} element={<Settings/>}/>
             <Route path={'/messages/:id'}
-                   element={<MessagesContainer store={store}/>}/>
+                   element={<MessagesContainer/>}/>
 
             <Route path={'/*'} element={<Error404/>}/>
         </Routes>

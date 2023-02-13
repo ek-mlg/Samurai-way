@@ -3,15 +3,19 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {BrowserRouter} from "react-router-dom";
+import {Provider} from "./StoreContext";
+import {store} from "./Redux/redux-store";
 
-import {store} from "./Redux/state";
 const rerender = () => {
     ReactDOM.render(
         <BrowserRouter>
-            <App/>
-        </BrowserRouter>,
-        document.getElementById('root')
-    );
+            <Provider store={store}>
+                <App/>
+            </Provider>
+        </BrowserRouter>
+,
+document.getElementById('root')
+);
 }
 store.subscribe(rerender)
 rerender()
