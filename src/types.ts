@@ -7,12 +7,12 @@ export type PostDataType = {
     likeCounter: number,
 }
 
-type DialogsDataPropsType = {
+export type DialogsDataPropsType = {
     id: string,
     message: string
 }
 
-type UsersDataPropsType = {
+export type UsersDataPropsType = {
     id: string,
     name: string
 }
@@ -27,8 +27,7 @@ export type MessagesPageDataType = {
     usersData: UsersDataPropsType[],
     dialogsData: DialogsDataPropsType[],
     valueMessageText: string,
-    placeholderMessage: string
-
+    placeholderMessage: string,
 }
 
 export type StateType = {

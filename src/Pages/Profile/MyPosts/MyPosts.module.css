@@ -1,6 +1,46 @@
 .main {
-    display: flex;
-    justify-content: center;
+
 }
-.textareaAndPost{
+
+.textareaAndPost {
+    display: flex;
+    flex-direction: column;
+}
+
+.textareaAndButton {
+    display: flex;
+    height: 40px;
+    gap: 15px;
+}
+
+
+.textarea {
+    width: 360px;
+    min-height: 25px;
+    padding-top: 10px;
+    padding-left: 20px;
+    border-radius: 25px;
+    resize: none;
+    color: #000000;
+    font-size: 12px;
+    font-family: 'Poppins', serif;
+    font-weight: 400;
+}
+
+.button {
+    border-radius: 25px;
+    border: none;
+    background: #0071e3;
+    color: #fff;
+    font-family: 'Poppins', serif;
+    font-weight: 600;
+    font-size: 12px;
+    height: 39px;
+    width: 110px;
+    margin: 0 5px 25px;
+    cursor: pointer;
+}
+
+.postElement {
+
 }

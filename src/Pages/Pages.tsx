@@ -1,24 +1,20 @@
 import React from 'react';
 import {Navigate, Route, Routes} from "react-router-dom";
 import {Profile} from "./Profile/Profile";
-import Messages from "./Messages/Messages";
 import News from "./News/News";
 import Music from "./Music/Music";
 import Settings from "./Settings/Settings";
 import Error404 from "./Error404/Error404";
 import {store} from "../Redux/state";
-import {StoreType} from "../types";
+import MessagesContainer from "./Messages/MessagesContainer";
 
-type PagesPropsType = {
-    store: StoreType
-}
 
-export const Pages: React.FC<PagesPropsType> = (props) => {
+export const Pages = () => {
 
-    const state = props.store.getState()
+    /*const state = props.store.getState()
 
     const messagesPageData = state.messagesPage
-    const dispatch = props.store.dispatch.bind(props.store)
+    const dispatch = props.store.dispatch.bind(props.store)*/
 
     // const params = useParams<'id'>()
 
@@ -26,13 +22,13 @@ export const Pages: React.FC<PagesPropsType> = (props) => {
         <Routes>
             <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
 
-            <Route path={'/profile'} element={<Profile store={store}/>}/>
-            <Route path={'/messages'} element={<Messages dispatch={dispatch} messagesPageData={messagesPageData}/>}/>
+            <Route path={'/profile'} element={<Profile />}/>
+            <Route path={'/messages'} element={<MessagesContainer store={store}/>}/>
             <Route path={'/news'} element={<News/>}/>
             <Route path={'/music'} element={<Music/>}/>
             <Route path={'/settings'} element={<Settings/>}/>
             <Route path={'/messages/:id'}
-                   element={<Messages dispatch={dispatch} messagesPageData={messagesPageData}/>}/>
+                   element={<MessagesContainer store={store}/>}/>
 
             <Route path={'/*'} element={<Error404/>}/>
         </Routes>

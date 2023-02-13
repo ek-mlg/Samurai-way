@@ -1,4 +1,4 @@
-import {combineReducers, createStore} from "redux";
+import {combineReducers, createStore, legacy_createStore} from "redux";
 import {ProfilePageReducer} from "./profilePage-reducer";
 import {MessagesPageReducer} from "./messagesPage-reducer";
 
@@ -8,4 +8,4 @@ const reducers = combineReducers({
     profilePage: ProfilePageReducer,
     messagesPage: MessagesPageReducer
 });
-export const store = createStore(reducers)
+export const store = legacy_createStore(reducers)

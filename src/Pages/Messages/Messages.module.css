@@ -1,11 +1,7 @@
 .dialogs {
-    display: flex;
-    justify-content: center;
 }
 
 .users {
-    display: flex;
-    flex-direction: column;
 }
 
 .item {

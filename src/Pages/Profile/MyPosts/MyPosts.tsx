@@ -1,29 +1,34 @@
 import React, {ChangeEvent} from 'react';
 import Post from "./Post/Post";
-import {ActionsType, PostDataType} from "../../../types";
+import {PostDataType} from "../../../types";
 import s from "./MyPosts.module.css";
-import {addPostAC, changePostAC} from "../../../Redux/profilePage-reducer";
 
 type MyPostsPropsType = {
+    /*dispatch: (action: ActionsType) => void,*/
+
     postData: PostDataType[],
-    valuePostText: string
-    placeholderPost: string
-    dispatch: (action: ActionsType) => void
+    valuePostText: string,
+    placeholderPost: string,
+    updateNewPostText: (newText: string)=> void,
+    addPostCallback: (valuePostText: string) => void
 }
 
 const MyPosts: React.FC<MyPostsPropsType> = (props) => {
 
-    const {postData, valuePostText, dispatch, placeholderPost} = props
+    const {updateNewPostText, addPostCallback, postData, valuePostText, placeholderPost} = props
 
     const postElement = postData.map((e) => <Post key={e.id} message={e.message} likeCounter={e.likeCounter}/>)
 
     const postOnChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const newText = e.currentTarget.value
-        dispatch(changePostAC(newText))
+        updateNewPostText(newText)
+        /*dispatch(changePostAC(newText))*/
+        /*changePostText(e.currentTarget.value)*/
     }
 
     const addPost = () => {
-        dispatch(addPostAC(valuePostText));
+        addPostCallback(valuePostText)
+        /*dispatch(addPostAC(valuePostText));*/
     }
 
     return (
