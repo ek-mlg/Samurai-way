@@ -39,13 +39,11 @@ export const MessagesPageReducer = (state: InitialStateType = initialState, acti
     switch (action.type) {
 
         case 'SEND-MESSAGE':
-            const newMessage = {id: v1(), message: action.sendMessage}
-            const stateCopy = {...state}
-            stateCopy.dialogsData = [...state.dialogsData]
-            stateCopy.dialogsData.push(newMessage)
-            stateCopy.valueMessageText = ''
-
-            return stateCopy
+            return {
+                ...state,
+                dialogsData: [...state.dialogsData, {id: v1(), message: action.sendMessage}],
+                valueMessageText: ""
+            }
 
         case 'ADD-TEXT-MESSAGE':
             return {

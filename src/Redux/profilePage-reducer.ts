@@ -21,19 +21,17 @@ const initialState = {
     placeholderPost: 'Please, enter your post'
 }
 
-export const ProfilePageReducer = (state:InitialStateType = initialState, action: ProfileActionsType): InitialStateType => {
+export const ProfilePageReducer = (state: InitialStateType = initialState, action: ProfileActionsType): InitialStateType => {
 
     switch (action.type) {
 
         case 'ADD-POST':
-            const newPost = {id: v1(), message: action.postText, likeCounter: 0}
 
-            const stateCopy = {...state}
-            stateCopy.postData = [...state.postData]
-            stateCopy.postData.push(newPost)
-            stateCopy.valuePostText = ''
-
-            return stateCopy;
+            return {
+                ...state,
+                postData: [...state.postData, {id: v1(), message: action.postText, likeCounter: 0}],
+                valuePostText: ""
+            }
 
         case 'ADD-CHANGE-POST':
 
