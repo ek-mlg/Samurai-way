@@ -1,17 +1,22 @@
 import React from 'react';
 import {usersPropsType} from "./UsersContainer";
-import {UsersType} from '../../Redux/users-reducer';
 import avatar from "../../assets/images/avatar.png"
 import axios, {AxiosResponse} from "axios";
+import s from "./Users.module.css"
+
 
 
 const Users: React.FC<usersPropsType> = (props) => {
 
     const {users, follow, unFollow, setUsers} = props
-
-        axios.get("https://social-network.samuraijs.com/api/1.0/users").then((response: AxiosResponse<UsersType[]>) => {
-            setUsers(response.data)
-        })
+    const getUsers = () => {
+        if (users.length === 0) {
+            axios.get("https://social-network.samuraijs.com/api/1.0/users")
+                .then((response: AxiosResponse) => {
+                setUsers(response.data.items)
+            })
+        }
+    }
 
     /*setUsers([
         {id: 1, followed: false, fullName: "Egor", status: 'Boss', location: {country: "Russia", city: "Moscow"}},
@@ -22,10 +27,11 @@ const Users: React.FC<usersPropsType> = (props) => {
 
     return (
         <>
+            <button onClick={getUsers}>getUsers</button>
             {users.map(u => <div key={u.id}>
                 <span>
                     <div>
-                        <img src={u.photos.small != null ? u.photos.small : avatar}/>
+                        <img src={u.photos.small != null ? u.photos.small : avatar} className={s.avatar}/>
                     </div>
                 </span>
                 <span>

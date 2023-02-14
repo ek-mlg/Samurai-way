@@ -10,6 +10,7 @@ export type UsersType = {
     status: string,
     photos: PhotosType,
     location: LocationType
+
 }
 
 type PhotosType = {
@@ -55,13 +56,10 @@ export const UsersReducer = (state: InitialStateType = initialState, action: Use
             }
 
         case 'SET-USERS': {
-            if (Array.isArray(action.users)) {
                 return {
                     ...state,
                     users: [...state.users, ...action.users]
                 }
-            }
-            return state;
         }
         default:
             return state;
