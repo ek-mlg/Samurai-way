@@ -6,9 +6,15 @@ export type UsersActionsType =
 export type UsersType = {
     id: number,
     followed: boolean,
-    fullName: string,
+    name: string,
     status: string,
+    photos: PhotosType,
     location: LocationType
+}
+
+type PhotosType = {
+    small: string,
+    large: string
 }
 
 type LocationType = {
@@ -19,12 +25,7 @@ type LocationType = {
 export type InitialStateType = typeof initialState
 
 const initialState = {
-    users: [
-        {id: 1, followed: false, fullName: "Egor", status: 'Boss', location: {country: "Russia", city: "Moscow"}},
-        {id: 2, followed: false, fullName: "Masha", status: 'SMM', location: {country: "Russia", city: "Ivanovo"}},
-        {id: 3, followed: false, fullName: "Kate", status: 'Medic', location: {country: "Russia", city: "Moscow"}},
-        {id: 4, followed: false, fullName: "Misha", status: 'BBQ', location: {country: "Russia", city: "Moscow"}},
-    ] as UsersType[],
+    users: [] as UsersType[],
 }
 
 export const UsersReducer = (state: InitialStateType = initialState, action: UsersActionsType): InitialStateType => {
@@ -53,12 +54,15 @@ export const UsersReducer = (state: InitialStateType = initialState, action: Use
                 })
             }
 
-        case 'SET-USERS':
-            return {
-                ...state,
-                users: [...state.users, ...action.users]
+        case 'SET-USERS': {
+            if (Array.isArray(action.users)) {
+                return {
+                    ...state,
+                    users: [...state.users, ...action.users]
+                }
             }
-
+            return state;
+        }
         default:
             return state;
     }

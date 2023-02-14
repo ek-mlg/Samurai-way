@@ -1,10 +1,17 @@
 import React from 'react';
 import {usersPropsType} from "./UsersContainer";
+import {UsersType} from '../../Redux/users-reducer';
+import avatar from "../../assets/images/avatar.png"
+import axios, {AxiosResponse} from "axios";
 
 
 const Users: React.FC<usersPropsType> = (props) => {
 
     const {users, follow, unFollow, setUsers} = props
+
+        axios.get("https://social-network.samuraijs.com/api/1.0/users").then((response: AxiosResponse<UsersType[]>) => {
+            setUsers(response.data)
+        })
 
     /*setUsers([
         {id: 1, followed: false, fullName: "Egor", status: 'Boss', location: {country: "Russia", city: "Moscow"}},
@@ -18,7 +25,7 @@ const Users: React.FC<usersPropsType> = (props) => {
             {users.map(u => <div key={u.id}>
                 <span>
                     <div>
-                        <img/>
+                        <img src={u.photos.small != null ? u.photos.small : avatar}/>
                     </div>
                 </span>
                 <span>
@@ -32,14 +39,14 @@ const Users: React.FC<usersPropsType> = (props) => {
                 </span>
                 <span>
                     <span>
-                        <div>{u.fullName}</div>
+                        <div>{u.name}</div>
                         <div>{u.status}</div>
                     </span>
                 </span>
                 <span>
                     <span>
-                        <div>{u.location.country}</div>
-                        <div>{u.location.city}</div>
+                        <div>{/*{u.location.country}*/}</div>
+                        <div>{/*{u.location.city}*/}</div>
                     </span>
                 </span>
             </div>)}
