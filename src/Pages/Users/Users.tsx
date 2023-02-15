@@ -3,22 +3,48 @@ import avatar from "../../assets/images/avatar.png";
 import s from "./Users.module.css";
 import axios, {AxiosResponse} from "axios";
 import {UsersType} from "../../Redux/users-reducer";
-import {usersPropsType} from "./UsersContainer";
+import {UsersPropsType} from "./UsersContainer";
+import {match} from "assert";
 
-export class Users extends React.Component<usersPropsType, UsersType> {
+export class Users extends React.Component<UsersPropsType, UsersType> {
 
-    getUsers = () => {
-        if (this.props.users.length === 0) {
-            axios.get("https://social-network.samuraijs.com/api/1.0/users")
-                .then((response: AxiosResponse) => {
-                    this.props.setUsers(response.data.items)
-                })
-        }
+    componentDidMount() {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then((response: AxiosResponse) => {
+                this.props.setUsers(response.data.items)
+                this.props.SetTotalUsersCount(response.data.totalCount)
+            })
     }
+
+    onPageChanged = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+            .then((response: AxiosResponse) => {
+                this.props.setUsers(response.data.items)
+
+            })
+    }
+
     render() {
+
+        const pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
+
+        const pages = []
+        for (let i = 1; i <= pagesCount; i++) {
+            pages.push(i)
+        }
+
         return (
             <>
-                <button onClick={this.getUsers}>getUsers</button>
+                <div>
+                    {pages.map(p => {
+                        return <span className={`${this.props.currentPage === p && s.selectedPage} ${s.pageNumber}`}
+                                     onClick={() => {
+                                         this.onPageChanged(p)
+                                     }}>{p}</span>
+                    })}
+
+                </div>
                 {this.props.users.map(u => <div key={u.id}>
                 <span>
                     <div>

@@ -1,3 +1,11 @@
 .avatar {
     height: 35px;
 }
+
+.selectedPage {
+    font-weight: bold;
+}
+
+.pageNumber {
+    cursor: pointer;
+}
