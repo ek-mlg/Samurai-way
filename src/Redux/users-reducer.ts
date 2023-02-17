@@ -4,6 +4,8 @@ export type UsersActionsType =
     | ReturnType<typeof setUsersAC>
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof SetTotalUsersCountAC>
+    | ReturnType<typeof ToggleIsFetchingAC>
+
 
 export type UsersType = {
     id: number,
@@ -31,7 +33,8 @@ const initialState = {
     users: [] as UsersType[],
     pageSize: 5,
     totalUsersCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: false
 }
 
 export const UsersReducer = (state: InitialStateType = initialState, action: UsersActionsType): InitialStateType => {
@@ -80,6 +83,12 @@ export const UsersReducer = (state: InitialStateType = initialState, action: Use
                 totalUsersCount: action.totalUsersCount
             }
         }
+        case 'TOGGLE' : {
+            return {
+                ...state,
+                isFetching: action.isFetching
+            }
+        }
 
         default:
             return state;
@@ -118,5 +127,12 @@ export const SetTotalUsersCountAC = (totalUsersCount: number) => {
     return {
         type: "SET-USERS-COUNT",
         totalUsersCount: totalUsersCount
+    } as const
+}
+
+export const ToggleIsFetchingAC = (isFetching: boolean) => {
+    return {
+        type: "TOGGLE",
+        isFetching: isFetching
     } as const
 }
