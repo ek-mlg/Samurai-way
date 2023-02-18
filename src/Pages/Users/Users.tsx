@@ -2,6 +2,7 @@ import React from 'react';
 import s from "./Users.module.css";
 import avatar from "../../assets/images/avatar.png";
 import {UsersType} from "../../Redux/users-reducer";
+import {NavLink} from "react-router-dom";
 
 type PresentationalUsersPropsType = {
     onPageChanged: (pageNumber: number) => void,
@@ -14,7 +15,7 @@ type PresentationalUsersPropsType = {
 }
 
 
-const Users:React.FC<PresentationalUsersPropsType> = (props) => {
+const Users: React.FC<PresentationalUsersPropsType> = (props) => {
 
     const {pageSize, totalUsersCount, currentPage, users, follow, unFollow, onPageChanged} = props
 
@@ -39,7 +40,9 @@ const Users:React.FC<PresentationalUsersPropsType> = (props) => {
             {users.map(u => <div key={u.id}>
                 <span>
                     <div>
-                        <img src={u.photos.small != null ? u.photos.small : avatar} className={s.avatar}/>
+                        <NavLink to={'/profile/' + u.id}>
+                            <img src={u.photos.small != null ? u.photos.small : avatar} className={s.avatar}/>
+                        </NavLink>
                     </div>
                 </span>
                 <span>

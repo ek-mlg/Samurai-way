@@ -1,6 +1,6 @@
 import React from 'react';
 import s from "../Messages.module.css";
-import {NavLink, Route, Routes, useParams} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 type UserPropsType = {
     name: string,

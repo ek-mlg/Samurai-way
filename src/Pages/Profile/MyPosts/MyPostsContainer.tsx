@@ -13,11 +13,12 @@ type MapDispatchPropsType = {
 
 export type MyPostPropsType = InitialStateType & MapDispatchPropsType
 
-const mapStateToProps = (state: AppRootStateType): InitialStateType => {
+const mapStateToProps = (state: AppRootStateType) => {
     return {
         postData: state.profilePage.postData,
         valuePostText: state.profilePage.valuePostText,
-        placeholderPost: state.profilePage.placeholderPost
+        placeholderPost: state.profilePage.placeholderPost,
+        profile: state.profilePage.profile
     }
 }
 
