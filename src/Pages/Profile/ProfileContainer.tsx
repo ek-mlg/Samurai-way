@@ -29,9 +29,9 @@ const ProfileContainer = (props: ProfilePropsType) => {
     }, [userId])
 
     return (
-        <div>
+        <>
             <Profile {...props} profile={props.profile}/>
-        </div>
+        </>
     )
 }
 

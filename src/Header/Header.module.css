@@ -1,12 +1,19 @@
 
 .header {
-    height: 100px;
+    height: 70px;
     display: flex;
     align-items: center;
-    justify-content: space-around;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    gap: 50%;
 }
 
-.logo {
-    height: 35px;
+.title {
+    margin-left: 15%;
+    width: 15%;
+    display: flex;
+    justify-content: center;
+}
+
+.login {
+
 }
