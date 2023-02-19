@@ -12,7 +12,7 @@ import {
 } from "../../Redux/users-reducer";
 import Users from "./Users";
 import axios, {AxiosResponse} from "axios";
-import Preloader from "../../Components /Preloader/Preloader";
+import {CircularProgress} from "@material-ui/core";
 
 type MapDispatchPropsType = {
     follow: (userId: number) => void,
@@ -50,12 +50,11 @@ class UsersContainer extends React.Component<UsersPropsType, UsersType> {
     }
 
     render() {
-
         return <>
             {this.props.isFetching ? <div
                 style={{position: "absolute", top: "50%", left: "50%"}}
             >
-                <Preloader/>
+                <CircularProgress />
             </div> : null}
 
             <Users
