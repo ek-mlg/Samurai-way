@@ -13,6 +13,7 @@ import {
 import Users from "./Users";
 import axios, {AxiosResponse} from "axios";
 import {CircularProgress} from "@material-ui/core";
+import {usersAPI} from "../../api/api";
 
 type MapDispatchPropsType = {
     follow: (userId: number) => void,
@@ -28,25 +29,24 @@ export type UsersPropsType = InitialStateType & MapDispatchPropsType
 
 class UsersContainer extends React.Component<UsersPropsType, UsersType> {
 
+
     componentDidMount() {
         this.props.ToggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
-            withCredentials: true
-        })
-            .then((response: AxiosResponse) => {
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
+            .then((data) => {
                 this.props.ToggleIsFetching(false)
-                this.props.setUsers(response.data.items)
-                this.props.SetTotalUsersCount(response.data.totalCount)
+                this.props.setUsers(data.items)
+                this.props.SetTotalUsersCount(data.totalCount)
             })
     }
 
     onPageChanged = (pageNumber: number) => {
         this.props.ToggleIsFetching(true)
         this.props.setCurrentPage(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {withCredentials: true})
-            .then((response: AxiosResponse) => {
+        usersAPI.getUsers(pageNumber, this.props.pageSize)
+            .then((data) => {
                 this.props.ToggleIsFetching(false)
-                this.props.setUsers(response.data.items)
+                this.props.setUsers(data.items)
 
             })
     }
