@@ -12,13 +12,24 @@ type PresentationalUsersPropsType = {
     users: UsersType[],
     pageSize: number,
     totalUsersCount: number,
-    currentPage: number
+    currentPage: number,
+    toggleFollowingProgress: (isFetching: boolean, userId: number) => void,
+    followingInProgress: number[]
 }
-
 
 const Users: React.FC<PresentationalUsersPropsType> = (props) => {
 
-    const {pageSize, totalUsersCount, currentPage, users, follow, unFollow, onPageChanged} = props
+    const {
+        pageSize,
+        totalUsersCount,
+        currentPage,
+        users,
+        follow,
+        unFollow,
+        onPageChanged,
+        toggleFollowingProgress,
+        followingInProgress
+    } = props
 
     const pagesCount = Math.ceil(totalUsersCount / pageSize)
 
@@ -46,7 +57,8 @@ const Users: React.FC<PresentationalUsersPropsType> = (props) => {
                 </div>
                 <span>
                     {u.followed
-                        ? <button onClick={() => {
+                        ? <button disabled={followingInProgress.some(id => id === u.id)} onClick={() => {
+                            toggleFollowingProgress(true, u.id)
                             axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
                                 withCredentials: true,
                                 headers: {
@@ -57,11 +69,12 @@ const Users: React.FC<PresentationalUsersPropsType> = (props) => {
                                     if (response.data.resultCode === 0) {
                                         unFollow(u.id)
                                     }
+                                    toggleFollowingProgress(false, u.id)
                                 })
 
                         }}>Unfollow</button>
-                        : <button onClick={() => {
-
+                        : <button disabled={followingInProgress.some(id => id === u.id)} onClick={() => {
+                            toggleFollowingProgress(true, u.id)
                             axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
                                 withCredentials: true,
                                 headers: {
@@ -72,6 +85,7 @@ const Users: React.FC<PresentationalUsersPropsType> = (props) => {
                                     if (response.data.resultCode === 0) {
                                         follow(u.id)
                                     }
+                                    toggleFollowingProgress(false, u.id)
                                 })
                         }}>Follow</button>}
 

@@ -15,7 +15,6 @@ export const Pages = () => {
         <Routes>
             <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
 
-            {/*<Route path={'/profile'} element={<ProfileContainer />}/>*/}
             <Route path={'/messages'}  element={<MessagesContainer/>}/>
             <Route path={'/news'} element={<News/>}/>
             <Route path={'/music'} element={<Music/>}/>

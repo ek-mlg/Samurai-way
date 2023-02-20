@@ -8,10 +8,9 @@ import {
     setUsersAC,
     SetTotalUsersCountAC,
     unFollowAC,
-    UsersType, ToggleIsFetchingAC
+    UsersType, ToggleIsFetchingAC, ToggleIsFollowingProgressAC
 } from "../../Redux/users-reducer";
 import Users from "./Users";
-import axios, {AxiosResponse} from "axios";
 import {CircularProgress} from "@material-ui/core";
 import {usersAPI} from "../../api/api";
 
@@ -21,8 +20,8 @@ type MapDispatchPropsType = {
     setUsers: (users: UsersType[]) => void,
     setCurrentPage: (pageNumber: number) => void,
     SetTotalUsersCount: (totalCount: number) => void,
-    ToggleIsFetching: (isFetching: boolean) => void
-
+    toggleIsFetching: (isFetching: boolean) => void,
+    toggleFollowingProgress: (isFetching: boolean, userId: number) => void
 }
 
 export type UsersPropsType = InitialStateType & MapDispatchPropsType
@@ -31,21 +30,21 @@ class UsersContainer extends React.Component<UsersPropsType, UsersType> {
 
 
     componentDidMount() {
-        this.props.ToggleIsFetching(true)
+        this.props.toggleIsFetching(true)
         usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
             .then((data) => {
-                this.props.ToggleIsFetching(false)
+                this.props.toggleIsFetching(false)
                 this.props.setUsers(data.items)
                 this.props.SetTotalUsersCount(data.totalCount)
             })
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.ToggleIsFetching(true)
+        this.props.toggleIsFetching(true)
         this.props.setCurrentPage(pageNumber)
         usersAPI.getUsers(pageNumber, this.props.pageSize)
             .then((data) => {
-                this.props.ToggleIsFetching(false)
+                this.props.toggleIsFetching(false)
                 this.props.setUsers(data.items)
 
             })
@@ -56,7 +55,7 @@ class UsersContainer extends React.Component<UsersPropsType, UsersType> {
             {this.props.isFetching ? <div
                 style={{position: "absolute", top: "50%", left: "50%"}}
             >
-                <CircularProgress />
+                <CircularProgress/>
             </div> : null}
 
             <Users
@@ -67,6 +66,8 @@ class UsersContainer extends React.Component<UsersPropsType, UsersType> {
                 unFollow={this.props.unFollow}
                 follow={this.props.follow}
                 onPageChanged={this.onPageChanged}
+                toggleFollowingProgress={this.props.toggleFollowingProgress}
+                followingInProgress={this.props.followingInProgress}
             />
         </>
     }
@@ -78,7 +79,8 @@ const mapStateToProps = (state: AppRootStateType): InitialStateType => {
         pageSize: state.users.pageSize,
         totalUsersCount: state.users.totalUsersCount,
         currentPage: state.users.currentPage,
-        isFetching: state.users.isFetching
+        isFetching: state.users.isFetching,
+        followingInProgress: state.users.followingInProgress
     }
 }
 
@@ -90,5 +92,6 @@ export default connect(
         setUsers: setUsersAC,
         setCurrentPage: setCurrentPageAC,
         SetTotalUsersCount: SetTotalUsersCountAC,
-        ToggleIsFetching: ToggleIsFetchingAC
+        toggleIsFetching: ToggleIsFetchingAC,
+        toggleFollowingProgress :ToggleIsFollowingProgressAC
     })(UsersContainer);
