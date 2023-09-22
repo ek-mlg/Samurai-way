@@ -3,7 +3,6 @@ import s from "./Users.module.css";
 import avatar from "../../assets/images/avatar.png";
 import {UsersType} from "../../Redux/users-reducer";
 import {NavLink} from "react-router-dom";
-import axios, {AxiosResponse} from "axios";
 
 type PresentationalUsersPropsType = {
     onPageChanged: (pageNumber: number) => void,
@@ -27,7 +26,6 @@ const Users: React.FC<PresentationalUsersPropsType> = (props) => {
         follow,
         unFollow,
         onPageChanged,
-        toggleFollowingProgress,
         followingInProgress
     } = props
 
@@ -58,35 +56,11 @@ const Users: React.FC<PresentationalUsersPropsType> = (props) => {
                 <span>
                     {u.followed
                         ? <button disabled={followingInProgress.some(id => id === u.id)} onClick={() => {
-                            toggleFollowingProgress(true, u.id)
-                            axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
-                                withCredentials: true,
-                                headers: {
-                                    "API-KEY": "987ba286-46e2-4eba-be1a-8d065605a7e3"
-                                }
-                            })
-                                .then((response: AxiosResponse) => {
-                                    if (response.data.resultCode === 0) {
-                                        unFollow(u.id)
-                                    }
-                                    toggleFollowingProgress(false, u.id)
-                                })
+                            unFollow(u.id)
 
                         }}>Unfollow</button>
                         : <button disabled={followingInProgress.some(id => id === u.id)} onClick={() => {
-                            toggleFollowingProgress(true, u.id)
-                            axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
-                                withCredentials: true,
-                                headers: {
-                                    "API-KEY": "987ba286-46e2-4eba-be1a-8d065605a7e3"
-                                }
-                            })
-                                .then((response: AxiosResponse) => {
-                                    if (response.data.resultCode === 0) {
-                                        follow(u.id)
-                                    }
-                                    toggleFollowingProgress(false, u.id)
-                                })
+                            follow(u.id)
                         }}>Follow</button>}
 
 

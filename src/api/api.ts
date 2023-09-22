@@ -1,4 +1,5 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
+import {setUserDataAC} from "../Redux/auth-reducer";
 
 const instance = axios.create({
     withCredentials: true,
@@ -16,6 +17,14 @@ export const usersAPI = {
             })
     },
 
+    follow: (userId: number) => {
+        return instance.post(`/follow/${userId}`)
+    },
+
+    unFollow: (userId: number) => {
+        return instance.delete(`/follow/${userId}`)
+    },
+
     getUsers2: (currentPage: number = 1, pageSize: number = 10) => {
         axios.get(`/foolow?page=${currentPage}&count=${pageSize}`)
             .then(response => {
@@ -23,3 +32,5 @@ export const usersAPI = {
             })
     }
 }
+
+
