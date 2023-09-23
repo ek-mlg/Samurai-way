@@ -1,9 +1,8 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {setUserProfileAC} from "../../Redux/profilePage-reducer";
+import {getUserProfileTC} from "../../Redux/profilePage-reducer";
 import {AppRootStateType} from "../../Redux/redux-store";
-import axios, {AxiosResponse} from "axios";
 import {useParams} from "react-router-dom";
 
 type MapStatePropsType = {
@@ -11,7 +10,7 @@ type MapStatePropsType = {
 }
 
 type MapDispatchPropsType = {
-    setUserProfile: (profile: null) => void
+    getUserProfile: (userId: string | undefined) => void
 }
 
 export type ProfilePropsType = MapStatePropsType & MapDispatchPropsType
@@ -20,13 +19,7 @@ const ProfileContainer = (props: ProfilePropsType) => {
 
     const {userId} = useParams<{ userId: string }>()
 
-    useEffect(() => {
-        axios
-            .get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-            .then((response: AxiosResponse) => {
-                props.setUserProfile(response.data)
-            })
-    }, [userId])
+    props.getUserProfile(userId)
 
     return (
         <>
@@ -42,4 +35,4 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     }
 }
 
-export default connect(mapStateToProps, {setUserProfile: setUserProfileAC})(ProfileContainer);
+export default connect(mapStateToProps, {getUserProfile: getUserProfileTC})(ProfileContainer);

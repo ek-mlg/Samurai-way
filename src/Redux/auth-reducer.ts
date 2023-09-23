@@ -1,4 +1,9 @@
-export type authActionsType =
+import {Dispatch} from "redux";
+import {AppActionsType} from "./redux-store";
+import {authAPI} from "../api/api";
+import {AxiosResponse} from "axios";
+
+export type AuthActionsType =
     ReturnType<typeof setUserDataAC>
 
 export type InitialStateType = {
@@ -15,7 +20,7 @@ const initialState:InitialStateType = {
     isAuth: false
 }
 
-export const AuthReducer = (state: InitialStateType = initialState, action: authActionsType): InitialStateType => {
+export const AuthReducer = (state: InitialStateType = initialState, action: AuthActionsType): InitialStateType => {
 
     switch (action.type) {
 
@@ -31,9 +36,7 @@ export const AuthReducer = (state: InitialStateType = initialState, action: auth
     }
 }
 
-export const setUserDataAC = (id: number | null,
-                              email: string | null,
-                              login: string | null,) => {
+export const setUserDataAC = (id: number | null, email: string | null, login: string | null,) => {
     return {
         type: "SET-USER-DATA",
         data: {
@@ -42,4 +45,16 @@ export const setUserDataAC = (id: number | null,
             login
         }
     } as const
+}
+
+export const getAuthUserDataTC = () => {
+    return (dispatch: Dispatch<AppActionsType>) => {
+        authAPI.me()
+            .then((response: AxiosResponse) => {
+                const {id, login, email} = response.data.data
+                if (response.data.resultCode === 0) {
+                    dispatch(setUserDataAC(id, email, login))
+                }
+            })
+    }
 }

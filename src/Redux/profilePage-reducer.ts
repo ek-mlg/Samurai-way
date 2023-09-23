@@ -1,4 +1,8 @@
 import {v1} from "uuid";
+import {useEffect} from "react";
+import {profileAPI} from "../api/api";
+import {Dispatch} from "redux";
+import {AppActionsType} from "./redux-store";
 
 
 export type ProfileActionsType = ReturnType<typeof addPostAC>
@@ -84,4 +88,15 @@ export const setUserProfileAC = (profile: null) => {
         type: "SET-USER-PROFILE",
         profile: profile
     } as const
+}
+
+export const getUserProfileTC = (userId: string | undefined) => {
+    return (dispatch: Dispatch<AppActionsType>) => {
+
+        useEffect(() => {
+            profileAPI.getProfile(userId)
+                .then(data => dispatch(setUserProfileAC(data))
+                )
+        }, [userId])
+    }
 }
