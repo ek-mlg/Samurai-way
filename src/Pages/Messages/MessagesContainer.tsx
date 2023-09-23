@@ -4,6 +4,7 @@ import {InitialStateType, newMessageTextAC, sendMessageAC} from "../../Redux/mes
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../Redux/redux-store";
 import {Dispatch} from "redux";
+import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 
 type MapDispatchPropsType = {
     sendMessage: (valueMessageText: string) => void,
@@ -18,8 +19,6 @@ const mapStateToProps = (state: AppRootStateType): InitialStateType => {
         dialogsData: state.messagesPage.dialogsData,
         usersData: state.messagesPage.usersData,
         valueMessageText: state.messagesPage.valueMessageText,
-
-        isAuth: state.auth.isAuth
     }
 }
 
@@ -34,6 +33,8 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
     }
 }
 
-const MessagesContainer = connect(mapStateToProps, mapDispatchToProps)(Messages);
+const AuthRedirectComponent = withAuthRedirect(Messages)
+
+const MessagesContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
 
 export default MessagesContainer;

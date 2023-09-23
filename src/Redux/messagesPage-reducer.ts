@@ -33,7 +33,6 @@ const initialState = {
     valueMessageText: "",
     placeholderMessage: 'Please, enter your message',
 
-    isAuth: false
 }
 
 export const MessagesPageReducer = (state: InitialStateType = initialState, action: MessageActionsType): InitialStateType => {
