@@ -3,10 +3,11 @@ import s from './Messages.module.css';
 import UserItem from "./MessagesItems/UserItem";
 import DialogItem from "./MessagesItems/DialogItem";
 import {MessagesPropsType} from "./MessagesContainer";
+import {Navigate} from "react-router-dom";
 
 const Messages:React.FC<MessagesPropsType> = (props) => {
 
-    const {usersData, dialogsData, valueMessageText, placeholderMessage, newMessageText, sendMessage} = props
+    const {usersData, dialogsData, valueMessageText, placeholderMessage, newMessageText, sendMessage, isAuth} = props
 
     const usersElements = usersData.map((e) => <UserItem key={e.id} name={e.name} id={e.id}/>)
 
@@ -20,6 +21,9 @@ const Messages:React.FC<MessagesPropsType> = (props) => {
     const onClickHandler = () => {
         sendMessage(valueMessageText)
     }
+
+    if (!isAuth) return <Navigate to={'/login'}/>
+
 
     return (
         <div className={s.dialogs}>

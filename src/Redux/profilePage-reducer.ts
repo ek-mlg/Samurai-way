@@ -35,7 +35,7 @@ const initialState = {
     ] as PostType[],
     valuePostText: "",
     placeholderPost: 'Please, enter your post',
-    profile: null
+    profile: null,
 }
 
 export const ProfilePageReducer = (state: InitialStateType = initialState, action: ProfileActionsType): InitialStateType => {

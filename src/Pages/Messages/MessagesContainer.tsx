@@ -17,7 +17,9 @@ const mapStateToProps = (state: AppRootStateType): InitialStateType => {
         placeholderMessage: state.messagesPage.placeholderMessage,
         dialogsData: state.messagesPage.dialogsData,
         usersData: state.messagesPage.usersData,
-        valueMessageText: state.messagesPage.valueMessageText
+        valueMessageText: state.messagesPage.valueMessageText,
+
+        isAuth: state.auth.isAuth
     }
 }
 

@@ -20,7 +20,7 @@ export const Header = (props: MapStatePropsType) => {
                 <div className={s.login}>
                     {props.isAuth ? props.login
                         :
-                            <NavLink to={"/login"}>Login</NavLink>
+                            <NavLink to={"/Login"}>Login</NavLink>
                     }
                 </div>
             </header>
