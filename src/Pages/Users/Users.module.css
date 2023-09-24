@@ -1,3 +1,9 @@
+.users {
+    margin-left: 100px;
+    display: flex;
+    flex-direction: column;
+}
+
 .avatar {
     height: 35px;
 }

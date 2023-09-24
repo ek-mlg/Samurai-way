@@ -1,17 +1,19 @@
 import React from 'react';
-import './App.css';
+import './App.module.css';
 import {Pages} from "./Pages/Pages";
 import HeaderContainer from "./Header/HeaderContainer";
 import Sidebar from "./Sidebar/Sidebar";
-
+import s from './App.module.css'
 
 const App = () => {
 
     return (
-        <div className="App-wrapper">
+        <div className={s.appWrapper}>
             <HeaderContainer />
-            <Sidebar/>
-            <Pages/>
+            <div className={s.contentContainer}>
+                <Sidebar/>
+                <Pages/>
+            </div>
         </div>
 
     );

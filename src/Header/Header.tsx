@@ -16,12 +16,14 @@ export const Header = (props: MapStatePropsType) => {
     return (
         <>
             <header className={s.header}>
-                <h2 className={s.title}>Social Network</h2>
-                <div className={s.login}>
-                    {props.isAuth ? props.login
-                        :
+                <div className={s.headerContainer}>
+                    <h2 className={s.title}>Social Network</h2>
+                    <div className={s.login}>
+                        {props.isAuth ? props.login
+                            :
                             <NavLink to={"/Login"}>Login</NavLink>
-                    }
+                        }
+                    </div>
                 </div>
             </header>
         </>

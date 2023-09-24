@@ -10,6 +10,8 @@ import {
 } from "../../Redux/users-reducer";
 import Users from "./Users";
 import {CircularProgress} from "@material-ui/core";
+import {withAuthRedirect} from "../../HOC/withAuthRedirect";
+import {compose} from "redux";
 
 
 type MapDispatchPropsType = {
@@ -67,13 +69,13 @@ const mapStateToProps = (state: AppRootStateType): InitialStateType => {
     }
 }
 
-export default connect(
-    mapStateToProps,
-    {
-        follow: followThunkCreator,
-        unFollow: unFollowThunkCreator,
-        setCurrentPage: setCurrentPageAC,
-        toggleFollowingProgress: ToggleIsFollowingProgressAC,
-
-        getUsers: getUsersThunkCreator
-    })(UsersContainer);
+export default compose<React.ComponentType>(
+    withAuthRedirect,
+    connect(mapStateToProps, {
+            follow: followThunkCreator,
+            unFollow: unFollowThunkCreator,
+            setCurrentPage: setCurrentPageAC,
+            toggleFollowingProgress: ToggleIsFollowingProgressAC,
+            getUsers: getUsersThunkCreator
+        })
+)(UsersContainer)

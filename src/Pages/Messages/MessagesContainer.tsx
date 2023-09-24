@@ -3,7 +3,7 @@ import Messages from "./Messages";
 import {InitialStateType, newMessageTextAC, sendMessageAC} from "../../Redux/messagesPage-reducer";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../Redux/redux-store";
-import {Dispatch} from "redux";
+import {compose, Dispatch} from "redux";
 import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 
 type MapDispatchPropsType = {
@@ -33,8 +33,7 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
     }
 }
 
-const AuthRedirectComponent = withAuthRedirect(Messages)
-
-const MessagesContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
-
-export default MessagesContainer;
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect
+)(Messages);
