@@ -2,6 +2,7 @@ import React from 'react';
 import {ProfileType} from "../../../Redux/profilePage-reducer";
 import {CircularProgress} from "@material-ui/core";
 import s from "./ProfileInfo.module.css"
+import ProfileStatus from "./ProfileStatus";
 
 type ProfileInfoPropsType = {
     profile: null | ProfileType
@@ -22,6 +23,7 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
             <div className={s.avatarContainer}>
                 <img className={s.avatar} src={props.profile.photos.large}/>
             </div>
+            <ProfileStatus status={'hello'}/>
         </>
     );
 };

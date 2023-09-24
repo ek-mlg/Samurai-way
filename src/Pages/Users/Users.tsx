@@ -39,11 +39,13 @@ const Users: React.FC<PresentationalUsersPropsType> = (props) => {
     return (
         <>
             <div className={s.users}>
-                {pages.map(p => {
+                {pages.map((p, index) => {
                     return <span className={`${currentPage === p && s.selectedPage} ${s.pageNumber}`}
-                                 onClick={() => {
-                                     onPageChanged(p)
-                                 }}>{p}</span>
+                                 onClick={() => onPageChanged(p)}
+                                 key={index}
+                    >
+                        {p}
+                    </span>
                 })}
 
             </div>

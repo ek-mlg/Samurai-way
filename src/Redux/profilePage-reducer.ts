@@ -3,6 +3,7 @@ import {useEffect} from "react";
 import {profileAPI} from "../api/api";
 import {Dispatch} from "redux";
 import {AppActionsType} from "./redux-store";
+import photo from "../assets/images/avatar.png"
 
 
 export type ProfileActionsType = ReturnType<typeof addPostAC>

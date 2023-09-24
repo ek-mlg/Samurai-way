@@ -4,7 +4,6 @@ import {connect} from "react-redux";
 import {getUserProfileTC} from "../../Redux/profilePage-reducer";
 import {AppRootStateType} from "../../Redux/redux-store";
 import {useParams} from "react-router-dom";
-import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 import {compose} from "redux";
 
 type MapStatePropsType = {
@@ -19,8 +18,10 @@ export type ProfilePropsType = MapStatePropsType & MapDispatchPropsType
 
 const ProfileContainer: React.FC<ProfilePropsType> = (props) => {
     const {profile, getUserProfile} = props
+    let {userId} = useParams<{ userId: string }>()
 
-    const {userId} = useParams<{ userId: string }>()
+    if (!userId) userId = "2"
+
     getUserProfile(userId)
     return <Profile {...props} profile={profile}/>
 }
@@ -34,5 +35,5 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
 
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {getUserProfile: getUserProfileTC}),
-    withAuthRedirect
+    /*withAuthRedirect*/
 )(ProfileContainer)
