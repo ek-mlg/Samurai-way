@@ -11,7 +11,7 @@ type MapDispatchPropsType = {
     addPostCallback: (valuePostText: string) => void
 }
 
-export type MyPostPropsType = InitialStateType & MapDispatchPropsType
+export type MyPostPropsType = Omit<InitialStateType, 'status'> & MapDispatchPropsType
 
 const mapStateToProps = (state: AppRootStateType) => {
     return {

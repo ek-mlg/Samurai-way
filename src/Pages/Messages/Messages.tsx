@@ -3,7 +3,6 @@ import s from './Messages.module.css';
 import UserItem from "./MessagesItems/UserItem";
 import DialogItem from "./MessagesItems/DialogItem";
 import {MessagesPropsType} from "./MessagesContainer";
-import {Navigate} from "react-router-dom";
 
 const Messages:React.FC<MessagesPropsType> = (props) => {
 

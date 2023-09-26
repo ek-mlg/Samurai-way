@@ -5,7 +5,9 @@ import s from "./ProfileInfo.module.css"
 import ProfileStatus from "./ProfileStatus";
 
 type ProfileInfoPropsType = {
-    profile: null | ProfileType
+    profile: null | ProfileType,
+    status: string,
+    updateStatus: (status: string) => void
 }
 
 const ProfileInfo = (props: ProfileInfoPropsType) => {
@@ -23,7 +25,7 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
             <div className={s.avatarContainer}>
                 <img className={s.avatar} src={props.profile.photos.large}/>
             </div>
-            <ProfileStatus status={'hello'}/>
+            <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
         </>
     );
 };
