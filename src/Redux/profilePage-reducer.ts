@@ -9,6 +9,7 @@ export type ProfileActionsType =
     | ReturnType<typeof changePostAC>
     | ReturnType<typeof setUserProfileAC>
     | ReturnType<typeof setStatusAC>
+    | ReturnType<typeof updateStatusAC>
 
 
 export type PostType = {
@@ -65,6 +66,9 @@ export const ProfilePageReducer = (state: InitialStateType = initialState, actio
                 ...state,
                 status: action.status
             }
+        case "UPDATE-STATUS": {
+            return  {...state, status: action.payload.status}
+        }
 
         case 'SET-USER-PROFILE':
 
@@ -106,6 +110,15 @@ export const setStatusAC = (status: string) => {
     } as const
 }
 
+export const updateStatusAC = (status: string) => {
+    return {
+        type: "UPDATE-STATUS",
+        payload: {
+            status: status
+        }
+    } as const
+}
+
 export const getUserProfileTC = (userId: string) => {
     return (dispatch: Dispatch<AppActionsType>) => {
 
@@ -117,7 +130,7 @@ export const getUserProfileTC = (userId: string) => {
     }
 }
 
-export const getStatusTC = (userId: number) => {
+export const getStatusTC = (userId: string) => {
     return (dispatch: Dispatch<AppActionsType>) => {
 
         useEffect(() => {
@@ -129,12 +142,12 @@ export const getStatusTC = (userId: number) => {
 }
 
 export const updateStatusTC = (status: string) => {
-    return (dispatch: Dispatch<AppActionsType>) => {
-
-            profileAPI.updateStatus(status)
-                .then(res => {
-                        if (res.data.resultCode === 0) dispatch(setStatusAC(res.data))
-                    }
-                )
+    return (dispatch: Dispatch) => {
+        profileAPI.updateStatus(status)
+            .then(response => {
+                if(response.data.resultCode === 0) {
+                    dispatch(updateStatusAC(status))
+                }
+            })
     }
 }
