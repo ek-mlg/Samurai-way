@@ -24,14 +24,14 @@ const ProfileStatus: React.FC<ProfileStatusPropsType> = ({ status, updateStatus 
     useEffect(() => {
         setCurrentStatus(status);
     }, [status]);
-    console.log(status)
+
         return (
             <div>
                 {!editMode ?
                     <div>
                         <span
                             onDoubleClick={activateEditMode}
-                        >{currentStatus || '-'}</span>
+                        >{currentStatus || 'status is missing'}</span>
                     </div>
                     :
                     <div>

@@ -3,6 +3,7 @@ import {ProfileType} from "../../../Redux/profilePage-reducer";
 import {CircularProgress} from "@material-ui/core";
 import s from "./ProfileInfo.module.css"
 import ProfileStatus from "./ProfileStatus";
+import photo from '../../../assets/images/avatar.png'
 
 type ProfileInfoPropsType = {
     profile: null | ProfileType,
@@ -23,7 +24,7 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                  src={"https://cdn.lifehacker.ru/wp-content/uploads/2021/02/pawel-czerwinski-ruJm3dBXCqw-unsplash_1613826124-scaled.jpg"}/>*/}
             </div>
             <div className={s.avatarContainer}>
-                <img className={s.avatar} src={props.profile.photos.large}/>
+                <img className={s.avatar} src={!props.profile.photos.large ? photo : props.profile.photos.large}/>
             </div>
             <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
         </>

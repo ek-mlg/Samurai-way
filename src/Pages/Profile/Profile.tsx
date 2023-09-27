@@ -15,7 +15,7 @@ export const Profile = (props: ProfilePropsType) => {
     return (
         <div className={s.Container}>
             <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
-            <MyPostsContainer/>
+            <MyPostsContainer />
         </div>
     );
 };
