@@ -1,13 +1,12 @@
 import React from 'react';
 import MyPosts from "./MyPosts";
-import {addPostAC, changePostAC, InitialStateType} from "../../../Redux/profilePage-reducer";
+import {addPostAC, InitialStateType} from "../../../Redux/profilePage-reducer";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../../Redux/redux-store";
 import {Dispatch} from "redux";
 
 
 type MapDispatchPropsType = {
-    updateNewPostText: (newText: string) => void,
     addPostCallback: (valuePostText: string) => void
 }
 
@@ -16,21 +15,15 @@ export type MyPostPropsType = Omit<InitialStateType, 'status'> & MapDispatchProp
 const mapStateToProps = (state: AppRootStateType) => {
     return {
         postData: state.profilePage.postData,
-        valuePostText: state.profilePage.valuePostText,
-        placeholderPost: state.profilePage.placeholderPost,
         profile: state.profilePage.profile
     }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
     return {
-        updateNewPostText: (newText: string) => {
-            dispatch(changePostAC(newText))
-        },
-        addPostCallback: (valuePostText: string) => {
-            dispatch(addPostAC(valuePostText))
+        addPostCallback: (newPostText: string) => {
+            dispatch(addPostAC(newPostText))
         }
-
     }
 }
 

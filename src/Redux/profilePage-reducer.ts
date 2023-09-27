@@ -6,7 +6,6 @@ import {AppActionsType} from "./redux-store";
 
 export type ProfileActionsType =
     ReturnType<typeof addPostAC>
-    | ReturnType<typeof changePostAC>
     | ReturnType<typeof setUserProfileAC>
     | ReturnType<typeof setStatusAC>
     | ReturnType<typeof updateStatusAC>
@@ -35,8 +34,6 @@ const initialState = {
         {id: "2", message: "This my first post!", likeCounter: 5},
         {id: "3", message: "React", likeCounter: 23}
     ] as PostType[],
-    valuePostText: "",
-    placeholderPost: 'Please, enter your post',
     profile: null,
     status: ""
 }
@@ -46,18 +43,9 @@ export const ProfilePageReducer = (state: InitialStateType = initialState, actio
     switch (action.type) {
 
         case 'ADD-POST':
-
             return {
                 ...state,
-                postData: [...state.postData, {id: v1(), message: action.postText, likeCounter: 0}],
-                valuePostText: ""
-            }
-
-        case 'ADD-CHANGE-POST':
-
-            return {
-                ...state,
-                valuePostText: action.newText
+                postData: [...state.postData, {id: v1(), message: action.newPostText, likeCounter: 0}],
             }
 
         case 'SET-STATUS':
@@ -82,20 +70,12 @@ export const ProfilePageReducer = (state: InitialStateType = initialState, actio
     }
 }
 
-export const addPostAC = (postText: string) => {
+export const addPostAC = (newPostText: string) => {
     return {
         type: "ADD-POST",
-        postText: postText
+        newPostText: newPostText
     } as const
 }
-
-export const changePostAC = (newText: string) => {
-    return {
-        type: "ADD-CHANGE-POST",
-        newText: newText
-    } as const
-}
-
 export const setUserProfileAC = (profile: null) => {
     return {
         type: "SET-USER-PROFILE",

@@ -1,6 +1,6 @@
 import {v1} from "uuid";
 
-export type MessageActionsType = ReturnType<typeof newMessageTextAC> | ReturnType<typeof sendMessageAC>
+export type MessageActionsType = ReturnType<typeof sendMessageAC>
 
 type UserType = {
     id: string,
@@ -31,8 +31,6 @@ const initialState = {
     ] as DialogType[],
 
     valueMessageText: "",
-    placeholderMessage: 'Please, enter your message',
-
 }
 
 export const MessagesPageReducer = (state: InitialStateType = initialState, action: MessageActionsType): InitialStateType => {
@@ -42,31 +40,17 @@ export const MessagesPageReducer = (state: InitialStateType = initialState, acti
         case 'SEND-MESSAGE':
             return {
                 ...state,
-                dialogsData: [...state.dialogsData, {id: v1(), message: action.sendMessage}],
-                valueMessageText: ""
-            }
+                dialogsData: [...state.dialogsData, {id: v1(), message: action.newMessageBody}],
 
-        case 'ADD-TEXT-MESSAGE':
-            return {
-                ...state,
-                valueMessageText: action.newMessage
             }
 
         default:
             return state;
     }
 }
-
-
-export const newMessageTextAC = (newMessage: string) => {
-    return {
-        type: "ADD-TEXT-MESSAGE",
-        newMessage: newMessage
-    } as const
-}
-export const sendMessageAC = (sendMessage: string) => {
+export const sendMessageAC = (newMessageBody: string) => {
     return {
         type: "SEND-MESSAGE",
-        sendMessage: sendMessage
+        newMessageBody: newMessageBody
     } as const
 }
