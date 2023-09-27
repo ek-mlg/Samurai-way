@@ -11,10 +11,12 @@ const Post: React.FC<PostPropsType> = (props) => {
 
     return (
         <>
+            <img alt={'main photo'}/>
             <div>
                 {message}
             </div>
             <div>
+                <span>like: </span>
                 {likeCounter}
             </div>
         </>

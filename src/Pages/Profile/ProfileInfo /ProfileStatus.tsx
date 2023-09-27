@@ -4,8 +4,12 @@ type ProfileStatusPropsType = {
     status: string,
     updateStatus: (status: string) => void
 }
+interface ProfileStatusStateType {
+    editMode: boolean
+    status: string;
+}
 
-class ProfileStatus extends React.Component<ProfileStatusPropsType, any> {
+class ProfileStatus extends React.Component<ProfileStatusPropsType, ProfileStatusStateType> {
     state = {
         editMode: false,
         status: this.props.status
@@ -28,7 +32,16 @@ class ProfileStatus extends React.Component<ProfileStatusPropsType, any> {
 
     }
 
+    componentDidUpdate(prevProps: ProfileStatusPropsType, prevState: ProfileStatusStateType) {
+
+        if(prevProps.status !== this.props.status) {
+        this.setState({ status: this.props.status.toString() })
+            // костыль, приходит объект, который не может отрисовать JSX, дропается ошибка, рушится приложение
+        }
+    }
+
     render() {
+
         return (
             <div>
                 {!this.state.editMode ?
