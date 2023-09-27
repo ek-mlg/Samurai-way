@@ -14,15 +14,27 @@ type TextareaPropsType = {
     placeholder: string
 }
 
-export const Textarea: React.FC<TextareaPropsType> = ( {input, meta, ...props} ) => {
-    debugger
+
+const FormControl: React.FC<TextareaPropsType> = ( {input, meta, ...props} ) => {
 
     const hasError = meta.touched && meta.error
     return (
         <div>
-            <textarea {...input}{...props} className={hasError ? s.formControlErrorInput : ""}/>
+            {props.children}
             {hasError && <span className={s.formControlErrorSpan}>{meta.error}</span>}
         </div>
     );
+
+}
+
+export const Textarea = ( props: any ) => {
+    const {input, meta, child, hasError, ...restProps} = props
+    return <FormControl {...props}><textarea className={hasError ? s.formControlError : ''} {...input} {...restProps}/></FormControl>;
 };
+
+export const Input = ( props: any ) => {
+    const {input, meta, child, hasError, ...restProps} = props
+    return <FormControl {...props}><input className={hasError ? s.formControlError : ''} {...input} {...restProps}/></FormControl>;
+};
+
 
