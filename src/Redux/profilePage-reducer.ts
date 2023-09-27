@@ -18,7 +18,9 @@ export type PostType = {
 }
 
 export type ProfileType = {
-    photos: PhotosType
+    photos: PhotosType,
+    fullName: string,
+    aboutMe: string,
 }
 
 type PhotosType = {
@@ -101,12 +103,12 @@ export const updateStatusAC = (status: string) => {
 
 export const getUserProfileTC = (userId: string) => {
     return (dispatch: Dispatch<AppActionsType>) => {
-
         useEffect(() => {
             profileAPI.getProfile(userId)
                 .then(data => dispatch(setUserProfileAC(data))
                 )
         }, [userId])
+
     }
 }
 

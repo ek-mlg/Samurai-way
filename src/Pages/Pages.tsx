@@ -1,13 +1,13 @@
 import React from 'react';
 import {Navigate, Route, Routes}  from "react-router-dom";
-import News from "./News/News";
-import Music from "./Music/Music";
-import Settings from "./Settings/Settings";
-import Error404 from "./Error404/Error404";
-import MessagesContainer from "./Messages/MessagesContainer";
-import Login from "./Login/Login";
-import UsersContainer from "./Users/UsersContainer";
-import ProfileContainer from "./Profile/ProfileContainer"
+import News from "../сomponents/news/News";
+import Music from "../сomponents/music/Music";
+import Settings from "../сomponents/settings/Settings";
+import Error404 from "../сomponents/error404/Error404";
+import MessagesContainer from "../сomponents/messages/MessagesContainer";
+import Login from "../сomponents/login/Login";
+import UsersContainer from "../сomponents/users/UsersContainer";
+import ProfileContainer from "../сomponents/profile/ProfileContainer"
 
 export const Pages = () => {
 

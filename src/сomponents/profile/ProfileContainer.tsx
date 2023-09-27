@@ -27,6 +27,8 @@ const ProfileContainer: React.FC<ProfilePropsType> = (props) => {
 
     getUserProfile(userId)
     getStatus(userId)
+    console.log(profile)
+
     return <Profile {...props} profile={profile} status={props.status} updateStatus={props.updateStatus}/>
 }
 

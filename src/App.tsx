@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.module.css';
 import {Pages} from "./Pages/Pages";
-import HeaderContainer from "./Header/HeaderContainer";
-import Sidebar from "./Sidebar/Sidebar";
+import HeaderContainer from "./сomponents/header/HeaderContainer";
+import Sidebar from "./сomponents/sidebar/Sidebar";
 import s from './App.module.css'
 
 const App = () => {

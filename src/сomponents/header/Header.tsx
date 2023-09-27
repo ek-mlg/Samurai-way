@@ -1,11 +1,11 @@
 import React from 'react';
 import s from './Header.module.css';
-import Navbar from "./Navbar/Navbar";
+import Navbar from "./navbar/Navbar";
 import {MemoryRouter, NavLink} from "react-router-dom";
 import {MapStatePropsType} from "./HeaderContainer";
 
 /*const headerClassName = `
-${s.Header} 
+${s.header}
 `
 const logoClassName = `
 ${s.Logo}

@@ -1,8 +1,8 @@
 import React from 'react';
 import './Profile.module.css';
-import ProfileInfo from "./ProfileInfo /ProfileInfo";
+import ProfileInfo from "./profileInfo/ProfileInfo";
 import s from "./Profile.module.css"
-import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import MyPostsContainer from "./myPosts/MyPostsContainer";
 
 type ProfilePropsType = {
     profile: null,
