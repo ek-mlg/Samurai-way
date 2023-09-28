@@ -8,14 +8,14 @@ export type AuthActionsType =
     ReturnType<typeof setUserDataAC>
 
 export type InitialStateType = {
-    id: null | number,
+    id: undefined | string,
     email: null | string,
     login: null | string,
     isAuth: boolean
 }
 
 const initialState: InitialStateType = {
-    id: null,
+    id: undefined,
     email: null,
     login: null,
     isAuth: false
@@ -35,7 +35,7 @@ export const AuthReducer = (state: InitialStateType = initialState, action: Auth
     }
 }
 
-export const setUserDataAC = (id: number | null, email: string | null, login: string | null, isAuth: boolean) => {
+export const setUserDataAC = (id: string | undefined, email: string | null, login: string | null, isAuth: boolean) => {
     return {
         type: "SET-USER-DATA",
         payload: {
@@ -68,7 +68,7 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): A
 export const logoutTC = (): AppThunkType => async dispatch => {
     const res = await authAPI.logout()
     if (res.data.resultCode === 0) {
-        dispatch(setUserDataAC(null, null, null, false))
+        dispatch(setUserDataAC(undefined, null, null, false))
     }
 }
 
@@ -79,7 +79,7 @@ export const _logoutTC = (): AppThunkType => {
         authAPI.logout()
             .then((response: AxiosResponse) => {
                 if (response.data.resultCode === 0) {
-                    dispatch(setUserDataAC(null, null, null, false))
+                    dispatch(setUserDataAC(undefined, null, null, false))
                 }
             })
     }

@@ -9,11 +9,13 @@ import {compose} from "redux";
 type MapStatePropsType = {
     profile: null,
     status: string,
+    authorizedUserId: string | undefined,
+    isAuth: boolean
 }
 
 type MapDispatchPropsType = {
     getUserProfile: (userId: string | undefined) => void,
-    getStatus: (userId: string) => void,
+    getStatus: (userId: string | undefined) => void,
     updateStatus: (status: string) => void
 }
 
@@ -23,13 +25,17 @@ const ProfileContainer: React.FC<ProfilePropsType> = (props) => {
     const {profile, getUserProfile, getStatus} = props
     let {userId} = useParams<{ userId: string }>()
 
-    if (!userId) userId = "27582"
+    if (!userId) userId = props.authorizedUserId
 
     getUserProfile(userId)
     getStatus(userId)
+
     console.log(profile)
 
-    return <Profile {...props} profile={profile} status={props.status} updateStatus={props.updateStatus}/>
+    return <Profile {...props}
+                    profile={profile}
+                    status={props.status}
+                    updateStatus={props.updateStatus}/>
 }
 
 const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
@@ -37,6 +43,8 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
     return {
         profile: state.profilePage.profile,
         status: state.profilePage.status,
+        authorizedUserId: state.auth.id,
+        isAuth: state.auth.isAuth
     }
 }
 
