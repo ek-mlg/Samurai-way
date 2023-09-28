@@ -4,11 +4,11 @@ import {MessagesPageReducer} from "./messagesPage-reducer";
 import {UsersActionsType, UsersReducer} from "./users-reducer";
 import {AuthActionsType, AuthReducer} from "./auth-reducer";
 import thunkMiddleware, {ThunkAction} from "redux-thunk"
-import {reducer as formReducer} from 'redux-form'
+import {FormAction, reducer as formReducer} from 'redux-form'
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
 
-export type AppActionsType = UsersActionsType | ProfileActionsType | AuthActionsType
+export type AppActionsType = UsersActionsType | ProfileActionsType | AuthActionsType | FormAction
 
 const rootReducer = combineReducers({
     profilePage: ProfilePageReducer,
@@ -18,6 +18,5 @@ const rootReducer = combineReducers({
     form: formReducer
 });
 
-export type AppThunkType<ReturnType = void> = ThunkAction<void, AppRootStateType, unknown, AppActionsType>
-
+export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType | Promise<ReturnType>, AppRootStateType, unknown, AppActionsType>
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware))

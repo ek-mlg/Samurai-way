@@ -2,6 +2,7 @@ import {Dispatch} from "redux";
 import {AppActionsType, AppThunkType} from "./redux-store";
 import {authAPI} from "../api/api";
 import {AxiosResponse} from "axios";
+import {stopSubmit} from "redux-form";
 
 export type AuthActionsType =
     ReturnType<typeof setUserDataAC>
@@ -46,33 +47,34 @@ export const setUserDataAC = (id: number | null, email: string | null, login: st
     } as const
 }
 
-export const getAuthUserDataTC = () => {
-    return (dispatch: Dispatch<AppActionsType>) => {
-        authAPI.me()
-            .then((response: AxiosResponse) => {
-                const {id, email, login} = response.data.data
-                if (response.data.resultCode === 0) {
-                    dispatch(setUserDataAC(id, email, login, true))
-                }
-            })
+export const getAuthUserDataTC = () => async (dispatch: Dispatch<AppActionsType>) => {
+    const res = await authAPI.me()
+    const {id, email, login} = res.data.data
+    if (res.data.resultCode === 0) {
+        dispatch(setUserDataAC(id, email, login, true))
     }
 }
 
-export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunkType => {
-    return (dispatch) => {
-
-        authAPI.login(email, password, rememberMe)
-            .then((response: AxiosResponse) => {
-
-                if (response.data.resultCode === 0) {
-                    dispatch(getAuthUserDataTC())
-                }
-
-            })
+export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunkType => async dispatch => {
+    const res = await authAPI.login(email, password, rememberMe)
+    if (res.data.resultCode === 0) {
+        dispatch(getAuthUserDataTC())
+    } else {
+        const message = res.data.messages.length > 0 ? res.data.messages[0] : "Some error"
+        dispatch(stopSubmit('login', {_error: message}))
     }
 }
 
-export const logoutTC = (): AppThunkType => {
+export const logoutTC = (): AppThunkType => async dispatch => {
+    const res = await authAPI.logout()
+    if (res.data.resultCode === 0) {
+        dispatch(setUserDataAC(null, null, null, false))
+    }
+}
+
+
+/*ниже для себя*/
+export const _logoutTC = (): AppThunkType => {
     return (dispatch) => {
         authAPI.logout()
             .then((response: AxiosResponse) => {

@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 import {loginTC} from "../../Redux/auth-reducer";
 import {Navigate} from "react-router-dom";
 import {AppRootStateType} from "../../Redux/redux-store";
+import s from "./login.module.css";
 
 type LoginPropsType = {
     loginTC: (login: string, password: string, rememberMe: boolean) => void,
@@ -16,6 +17,7 @@ type FormDataType = {
     login: string,
     password: string,
     rememberMe: boolean,
+    error: boolean
 }
 
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
@@ -43,6 +45,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                        component={Input}
                 /> remember me
             </div>
+                {props.error ? <div className={s.formSummaryError}>{props.error}</div> : ''}
             <div>
                 <button>Login</button>
             </div>
