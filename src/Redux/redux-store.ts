@@ -3,8 +3,8 @@ import {ProfileActionsType, ProfilePageReducer} from "./profilePage-reducer";
 import {MessagesPageReducer} from "./messagesPage-reducer";
 import {UsersActionsType, UsersReducer} from "./users-reducer";
 import {AuthActionsType, AuthReducer} from "./auth-reducer";
-import thunkMiddleware from "redux-thunk"
-import { reducer as formReducer } from 'redux-form'
+import thunkMiddleware, {ThunkAction} from "redux-thunk"
+import {reducer as formReducer} from 'redux-form'
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
 
@@ -17,4 +17,7 @@ const rootReducer = combineReducers({
     auth: AuthReducer,
     form: formReducer
 });
+
+export type AppThunkType<ReturnType = void> = ThunkAction<void, AppRootStateType, unknown, AppActionsType>
+
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware))

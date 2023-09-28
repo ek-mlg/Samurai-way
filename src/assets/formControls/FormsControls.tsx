@@ -1,6 +1,14 @@
 import React from 'react';
 import s from './formsControls.module.css';
 
+type FormControlPropsType = {
+    meta: {
+        touched: boolean;
+        error: string | undefined;
+    }
+    children: React.ReactNode;
+}
+
 type TextareaPropsType = {
     meta: {
         touched: boolean;
@@ -11,30 +19,48 @@ type TextareaPropsType = {
         value: string;
         onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
     }
-    placeholder: string
 }
 
+type InputPropsType = {
+    input: {
+        name: string;
+        value: string;
+        onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    }
+    meta: {
+        touched: boolean;
+        error: string | undefined;
+    }
+}
 
-const FormControl: React.FC<TextareaPropsType> = ( {input, meta, ...props} ) => {
+const FormControl: React.FC<FormControlPropsType> = ( {children, meta} ) => {
 
     const hasError = meta.touched && meta.error
     return (
         <div>
-            {props.children}
+            {children}
             {hasError && <span className={s.formControlErrorSpan}>{meta.error}</span>}
         </div>
     );
 
 }
 
-export const Textarea = ( props: any ) => {
-    const {input, meta, child, hasError, ...restProps} = props
-    return <FormControl {...props}><textarea className={hasError ? s.formControlError : ''} {...input} {...restProps}/></FormControl>;
+export const Textarea: React.FC<TextareaPropsType> = (props) => {
+    const { input, meta, ...restProps } = props;
+    return (
+        <FormControl meta={meta}>
+            <textarea className={meta.touched && meta.error ? s.formControlError : ''} {...input} {...restProps} />
+        </FormControl>
+    );
 };
 
-export const Input = ( props: any ) => {
-    const {input, meta, child, hasError, ...restProps} = props
-    return <FormControl {...props}><input className={hasError ? s.formControlError : ''} {...input} {...restProps}/></FormControl>;
+export const Input: React.FC<InputPropsType> = (props) => {
+    const { input, meta, ...restProps } = props;
+    return (
+        <FormControl meta={meta}>
+            <input className={meta.touched && meta.error ? s.formControlError : ''} {...input} {...restProps} />
+        </FormControl>
+    );
 };
 
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import s from './Header.module.css';
-import Navbar from "./navbar/Navbar";
-import {MemoryRouter, NavLink} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import {MapStatePropsType} from "./HeaderContainer";
 
 /*const headerClassName = `
@@ -19,9 +18,9 @@ export const Header = (props: MapStatePropsType) => {
                 <div className={s.headerContainer}>
                     <h2 className={s.title}>Social Network</h2>
                     <div className={s.login}>
-                        {props.isAuth ? props.login
-                            :
-                            <NavLink to={"/login"}>Login</NavLink>
+                        {props.isAuth
+                            ? <div>{props.login} <button onClick={props.logoutTC}>Logout</button></div>
+                            : <NavLink to={"/login"}>Login</NavLink>
                         }
                     </div>
                 </div>

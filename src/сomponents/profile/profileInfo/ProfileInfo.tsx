@@ -24,8 +24,9 @@ const ProfileInfo = (props: ProfileInfoPropsType) => {
                  src={"https://cdn.lifehacker.ru/wp-content/uploads/2021/02/pawel-czerwinski-ruJm3dBXCqw-unsplash_1613826124-scaled.jpg"}/>*/}
             </div>
             <h1>{props.profile.fullName}</h1>
-            <span>{!props.profile.aboutMe ? "info about me is missing" : props.profile.aboutMe}</span>
             <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+            <p>about me: {!props.profile.aboutMe ? "info is missing" : props.profile.aboutMe}</p>
+            <p>looking for a job: {props.profile.lookingForAJob ? "yes" : "no"}</p>
             <div className={s.avatarContainer}>
                 <img alt={'avatar'} className={s.avatar} src={!props.profile.photos.large ? photo : props.profile.photos.large}/>
             </div>

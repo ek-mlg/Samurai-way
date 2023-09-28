@@ -21,6 +21,7 @@ export type ProfileType = {
     photos: PhotosType,
     fullName: string,
     aboutMe: string,
+    lookingForAJob: boolean
 }
 
 type PhotosType = {
