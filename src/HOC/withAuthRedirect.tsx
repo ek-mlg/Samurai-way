@@ -17,6 +17,7 @@ export function withAuthRedirect<T>(Component: ComponentType<T>) {
     const RedirectComponent = (props: MapStatePropsType) => {
         const {isAuth, ...restProps} = props
         if (!isAuth) return <Navigate to={'/login'}/>
+
         return <Component {...restProps as T}/>
     }
     return connect(mapStateToProps)(RedirectComponent)
