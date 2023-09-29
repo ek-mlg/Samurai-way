@@ -5,6 +5,7 @@ import {getStatusTC, getUserProfileTC, updateStatusTC} from "../../Redux/profile
 import {AppRootStateType} from "../../Redux/redux-store";
 import {useParams} from "react-router-dom";
 import {compose} from "redux";
+import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 
 type MapStatePropsType = {
     profile: null,
