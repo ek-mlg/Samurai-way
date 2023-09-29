@@ -25,7 +25,9 @@ const ProfileContainer: React.FC<ProfilePropsType> = (props) => {
     const {profile, getUserProfile, getStatus} = props
     let {userId} = useParams<{ userId: string }>()
 
-    if (!userId) userId = props.authorizedUserId
+    if (!userId) {
+        userId = props.authorizedUserId
+    }
 
     getUserProfile(userId)
     getStatus(userId)

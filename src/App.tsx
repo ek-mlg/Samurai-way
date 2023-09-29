@@ -5,21 +5,31 @@ import HeaderContainer from "./сomponents/header/HeaderContainer";
 import Sidebar from "./сomponents/sidebar/Sidebar";
 import s from './App.module.css'
 import {connect} from "react-redux";
-import {getAuthUserDataTC} from "./Redux/auth-reducer";
 import {compose} from "redux";
+import {initializeAppTC} from "./Redux/app-reducer";
+import {AppRootStateType} from "./Redux/redux-store";
+import Preloader from "./сomponents/preloader/Preloader";
 
-type AppPropsType = {
-    getAuthUserData: () => void
+type MapStatePropsType = {
+    initialized: boolean
 }
+
+type MapDispatchPropsType = {
+    initializeApp: () => void
+}
+
+type AppPropsType = MapStatePropsType & MapDispatchPropsType
 
 class App extends React.Component<AppPropsType> {
 
     componentDidMount() {
-        this.props.getAuthUserData()
+        this.props.initializeApp()
     }
 
     render() {
-
+        if (!this.props.initialized) {
+        return <Preloader/>
+        }
         return (
             <div className={s.appWrapper}>
                 <HeaderContainer/>
@@ -32,6 +42,10 @@ class App extends React.Component<AppPropsType> {
     }
 }
 
+const mapStateToProps = (state: AppRootStateType): MapStatePropsType => ({
+    initialized: state.app.initialized
+})
+
 export default compose<React.ComponentType>(
-    connect(null, {getAuthUserData: getAuthUserDataTC}))
+    connect(mapStateToProps, {initializeApp: initializeAppTC}))
     (App);
