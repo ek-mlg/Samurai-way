@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import s from './Header.module.css';
 import {NavLink} from "react-router-dom";
-import {MapStatePropsType} from "./HeaderContainer";
 
 /*const headerClassName = `
 ${s.header}
@@ -10,7 +9,7 @@ const logoClassName = `
 ${s.Logo}
 `*/
 
-export const Header = (props: MapStatePropsType) => {
+export const Header = (props: any) => {
 
     const [openMenu, setOpenMenu] = useState(false)
 

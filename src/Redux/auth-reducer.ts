@@ -58,7 +58,7 @@ export const getAuthUserDataTC = () => async (dispatch: Dispatch<AppActionsType>
 export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunkType => async dispatch => {
     const res = await authAPI.login(email, password, rememberMe)
     if (res.data.resultCode === 0) {
-        dispatch(getAuthUserDataTC())
+        await dispatch(getAuthUserDataTC())
     } else {
         const message = res.data.messages.length > 0 ? res.data.messages[0] : "Some error"
         dispatch(stopSubmit('login', {_error: message}))
