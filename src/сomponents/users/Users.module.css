@@ -1,3 +1,10 @@
+.usersBlock {
+    z-index: 1;
+    background: white;
+    width: 100%;
+    display: flex;
+}
+
 .users {
     margin-left: 100px;
     display: flex;

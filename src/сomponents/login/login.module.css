@@ -1,5 +1,253 @@
+.loginBox {
+    z-index: 1;
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 625px;
+}
+
+.leftContainer {
+    background: #fff;
+    width: 50%;
+    height: 100%;
+    border-right: solid 1px #e7e7e7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.infoContainer {
+    width: 400px;
+    height: 250px;
+}
+
+.iContainer {
+    font-size: 35px;
+    color: #000;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+@keyframes flip {
+    0%, 80% {
+        transform: rotateY(360deg);
+    }
+}
+
+.i {
+    animation: flip 2s infinite;
+    display: inline-block;
+    animation-delay: calc(.2s);
+    margin-bottom: 15px;
+}
+
+.i:nth-child(2) {
+    animation-delay: calc(.2s * 2);
+}
+
+.i:nth-child(3) {
+    animation-delay: calc(.2s * 3);
+}
+
+.i:nth-child(4) {
+    animation-delay: calc(.2s * 4);
+}
+.i:nth-child(5) {
+    animation-delay: calc(.2s * 5);
+}
+.i:nth-child(6) {
+    animation-delay: calc(.2s * 6);
+}
+.i:nth-child(7) {
+    animation-delay: calc(.2s * 7);
+}
+.i:nth-child(8) {
+    animation-delay: calc(.2s * 8);
+    color: #ff0000;
+}
+.i:nth-child(9) {
+    animation-delay: calc(.2s * 9);
+    color: #ff0000;
+}
+.i:nth-child(10) {
+    animation-delay: calc(.2s * 10);
+}
+.i:nth-child(11) {
+    animation-delay: calc(.2s * 11);
+}
+.i:nth-child(12) {
+    animation-delay: calc(.2s * 12);
+}
+.i:nth-child(13) {
+    animation-delay: calc(.2s * 13);
+}
+.i:nth-child(14) {
+    animation-delay: calc(.2s * 14);
+}
+.i:nth-child(15) {
+    animation-delay: calc(.2s * 15);
+}
+
+.info {
+    margin-bottom: 25px;
+    font-size: 15px;
+    font-family: 'Open Sans', sans-serif;
+    color: #424242;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.rightContainer {
+    background: #fff;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginContainer {
+    background: #fff;
+    width: 368px;
+    height: 420px;
+}
+
+.title {
+    font-family: 'Jost', sans-serif;
+    font-size: 30px;
+    margin: 0 0 15px;
+    text-align: center;
+    font-weight: 600;
+    color: #040404;
+    line-height: 1.2;
+}
+
+.sign {
+    font-family: 'Jost', sans-serif;
+    font-size: 25px;
+    margin: 0 0 30px;
+    text-align: center;
+    font-weight: 500;
+    color: #040404;
+    line-height: 1.2;
+}
+
 .formSummaryError {
-    border: 1px red solid;
-    padding: 5px;
-    color: red;
+    margin-top: 25px;
+    color: #ff0000;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    font-size: 16px;
+    text-align: center;
+}
+
+.form {
+    width: 368px;
+}
+
+.checkboxRememberContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.checkboxInput {
+    display: none;
+}
+
+.checkboxLabel {
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.checkboxLabel::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 1px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #d9d9d9;
+    background-color: #fff;
+    border-radius: 100px;
+}
+
+.checkboxInput:checked + .checkboxLabel::before {
+    background-color: #ff0000;
+    border: solid 1px #ff0000;
+}
+
+/* Создаем стилизированный галочкой символ внутри квадрата */
+.checkboxLabel::after {
+    font-family: 'Open Sans', sans-serif;
+    content: "\2713";
+    position: absolute;
+    left: 6px;
+    top: 3px;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+    color: #fff;
+    opacity: 0;
+}
+
+/* Показываем символ галочки при выборе */
+.checkboxInput:checked + .checkboxLabel::after {
+    opacity: 1;
+}
+
+
+.remember {
+    font-size: 16px;
+    color: #535353;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.forgotPassword {
+    text-decoration: none;
+    font-size: 16px;
+    color: #535353;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.button {
+    background: #ff0000;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    height: 55px;
+    width: 100%;
+    padding: 13px 50px 12px 50px;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: 'Jost', sans-serif;
+    border-radius: 100px;
+    text-transform: uppercase;
+}
+
+.button:hover {
+    background: #e80101;
+}
+
+.registerHref {
+    text-decoration: none;
+}
+
+.register {
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-top: 25px;
+    color: #535353;
 }

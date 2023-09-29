@@ -23,14 +23,15 @@ export const Header = (props: any) => {
         <>
             <header className={s.header}>
                 <div className={s.headerContainer}>
-                    <h2 className={s.title}>Social Network</h2>
-                    <div className={`${s.login} ${openMenu ? s.active : ''}`} onClick={onClickHandlerOpenCloseMenu}>
+                    <h2 className={s.title}>Samurai Way</h2>
+                    <div
+                        className={`${s.loginContainer} ${openMenu ? s.loginContainerActive : ''}`} onClick={onClickHandlerOpenCloseMenu}>
                         {openMenu ? <div className={s.menu}>
                             <span className={s.logout} onClick={props.logoutTC}>Logout</span>
                         </div> : ''}
                         {props.isAuth
                             ? props.login
-                            : <NavLink to={"/login"}>Login</NavLink>}
+                            : <NavLink to={"/login"} className={s.login}>Login</NavLink>}
                     </div>
                 </div>
             </header>

@@ -10,7 +10,6 @@ import {
 } from "../../Redux/users-reducer";
 import Users from "./Users";
 import {CircularProgress} from "@material-ui/core";
-import {withAuthRedirect} from "../../HOC/withAuthRedirect";
 import {compose} from "redux";
 
 
@@ -70,7 +69,7 @@ const mapStateToProps = (state: AppRootStateType): InitialStateType => {
 }
 
 export default compose<React.ComponentType>(
-    withAuthRedirect,
+    // withAuthRedirect,
     connect(mapStateToProps, {
             follow: followThunkCreator,
             unFollow: unFollowThunkCreator,

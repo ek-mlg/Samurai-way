@@ -1,4 +1,6 @@
 .sidebar {
+    z-index: 1;
+    background: #fff;
     margin-top: 50px;
     display: flex;
     justify-content: center;

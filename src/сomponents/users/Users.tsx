@@ -37,7 +37,7 @@ const Users: React.FC<PresentationalUsersPropsType> = (props) => {
     }
 
     return (
-        <>
+        <div className={s.usersBlock}>
             <div className={s.users}>
                 {pages.map((p, index) => {
                     return <span className={`${currentPage === p && s.selectedPage} ${s.pageNumber}`}
@@ -80,7 +80,7 @@ const Users: React.FC<PresentationalUsersPropsType> = (props) => {
                     </span>
                 </span>
             </div>)}
-        </>
+        </div>
     );
 };
 

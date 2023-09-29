@@ -1,4 +1,7 @@
 .dialogs {
+    z-index: 1;
+    background: white;
+    width: 100%;
 }
 
 .users {
