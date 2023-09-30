@@ -1,7 +1,6 @@
 import {usersAPI} from "../api/api";
 import {Dispatch} from "redux";
 import {AppActionsType} from "./redux-store";
-import {AxiosResponse} from "axios";
 
 export type UsersActionsType =
     ReturnType<typeof followSuccessAC>
@@ -161,46 +160,37 @@ export const ToggleIsFollowingProgressAC = (isFetching: boolean, userId: number)
     } as const
 }
 
-export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
-    return (dispatch: Dispatch<AppActionsType>) => {
+export const getUsersThunkCreator = (page: number, pageSize: number) => async (dispatch: Dispatch<AppActionsType>) => {
 
-        dispatch(ToggleIsFetchingAC(true))
-        usersAPI.getUsers(currentPage, pageSize)
-            .then((data) => {
-                dispatch(ToggleIsFetchingAC(false))
-                dispatch(setUsersAC(data.items))
-                dispatch(SetTotalUsersCountAC(data.totalCount))
-            })
+    dispatch(ToggleIsFetchingAC(true))
+    dispatch(setCurrentPageAC(page))
 
+    const res = await usersAPI.getUsers(page, pageSize)
+    if (res.data.resultCode === 0) {
+        dispatch(ToggleIsFetchingAC(false))
+        dispatch(setUsersAC(res.data.items))
+        dispatch(SetTotalUsersCountAC(res.data.totalCount))
     }
 }
 
-export const followThunkCreator = (userId: number) => {
-    return (dispatch: Dispatch<AppActionsType>) => {
+export const followThunkCreator = (userId: number) => async (dispatch: Dispatch<AppActionsType>) => {
 
-        dispatch(ToggleIsFollowingProgressAC(true, userId))
-        usersAPI.follow(userId)
-            .then((response: AxiosResponse) => {
-                if (response.data.resultCode === 0) {
-                    dispatch(followSuccessAC(userId))
-                }
-                dispatch(ToggleIsFollowingProgressAC(false, userId))
+    dispatch(ToggleIsFollowingProgressAC(true, userId))
 
-            })
+    const res = await usersAPI.follow(userId)
+    if (res.data.resultCode === 0) {
+        dispatch(followSuccessAC(userId))
     }
+    dispatch(ToggleIsFollowingProgressAC(false, userId))
 }
 
-export const unFollowThunkCreator = (userId: number) => {
-    return (dispatch: Dispatch<AppActionsType>) => {
+export const unFollowThunkCreator = (userId: number) => async (dispatch: Dispatch<AppActionsType>) => {
 
-        dispatch(ToggleIsFollowingProgressAC(true, userId))
+    dispatch(ToggleIsFollowingProgressAC(true, userId))
 
-        usersAPI.unFollow(userId)
-            .then((response: AxiosResponse) => {
-                if (response.data.resultCode === 0) {
-                    dispatch(unFollowSuccessAC(userId))
-                }
-                dispatch(ToggleIsFollowingProgressAC(false, userId))
-            })
+    const res = await usersAPI.unFollow(userId)
+    if (res.data.resultCode === 0) {
+        dispatch(unFollowSuccessAC(userId))
     }
+    dispatch(ToggleIsFollowingProgressAC(false, userId))
 }
