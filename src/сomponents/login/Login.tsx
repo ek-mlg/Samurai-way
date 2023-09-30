@@ -36,7 +36,6 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                        validate={[requiredField]}
                        name={'password'}
                        component={Input}
-
                 />
                 <div className={s.checkboxRememberContainer}>
                     <Field type={'checkbox'}
@@ -78,23 +77,39 @@ const Login: React.FC<LoginPropsType> = ({loginTC, isAuth}) => {
             <div className={s.leftContainer}>
                 <div className={s.infoContainer}>
                     <div className={s.iContainer}>
-                    <span className={s.i}>W</span>
-                    <span className={s.i}>E</span>
-                    <span className={s.i}>L</span>
-                    <span className={s.i}>C</span>
-                    <span className={s.i}>O</span>
-                    <span className={s.i}>M</span>
-                    <span className={s.i}>E</span>
-                    <span className={s.i}>T</span>
-                    <span className={s.i}>O</span>
-                    <span className={s.i}>M</span>
-                    <span className={s.i}>Y</span>
-                    <span className={s.i}>P</span>
-                    <span className={s.i}>R</span>
-                    <span className={s.i}>J</span>
-                    <span className={s.i}>T</span>
+                        <span className={s.i}>W</span>
+                        <span className={s.i}>E</span>
+                        <span className={s.i}>L</span>
+                        <span className={s.i}>C</span>
+                        <span className={s.i}>O</span>
+                        <span className={s.i}>M</span>
+                        <span className={s.i}>E</span>
+                        <span className={s.i}>T</span>
+                        <span className={s.i}>O</span>
+                        <span className={s.i}>M</span>
+                        <span className={s.i}>Y</span>
+                        <span className={s.i}>P</span>
+                        <span className={s.i}>R</span>
+                        <span className={s.i}>J</span>
+                        <span className={s.i}>T</span>
                     </div>
-                    <p className={s.info}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when</p>
+
+                    <p className={s.info}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when</p>
+                    <div className={s.socialButtonsContainer}>
+                        <a target={'_blank'} href={'https://github.com/ek-mlg'} className={`${s.socialButton} ${s.gitHub}`}>
+                            <i className={`fa-brands fa-github ${s.icon}`}></i>
+                        </a>
+                        <a target={'_blank'} href={'https://t.me/break_the_rules_eat_grasses'} className={`${s.socialButton} ${s.telegram}`}>
+                            <i className={`fa-brands fa-telegram ${s.icon}`}></i>
+                        </a>
+                        <a target={'_blank'} href={'https://ek-mlg.github.io/portfolio'} className={`${s.socialButton} ${s.site}`}>
+                            <i className={`fa-solid fa-link ${s.icon}`}></i>
+                        </a>
+                        <a target={'_blank'} href={'www.linkedin.com/in/ek-mlg'} className={`${s.socialButton} ${s.linked}`}>
+                            <i className={`fa-brands fa-linkedin-in ${s.icon}`}></i>
+                        </a>
+                    </div>
                 </div>
             </div>
             <div className={s.rightContainer}>
