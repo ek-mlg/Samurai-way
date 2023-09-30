@@ -165,12 +165,11 @@ export const getUsersThunkCreator = (page: number, pageSize: number) => async (d
     dispatch(ToggleIsFetchingAC(true))
     dispatch(setCurrentPageAC(page))
 
-    const res = await usersAPI.getUsers(page, pageSize)
-    if (res.data.resultCode === 0) {
+    const data = await usersAPI.getUsers(page, pageSize)
+
         dispatch(ToggleIsFetchingAC(false))
-        dispatch(setUsersAC(res.data.items))
-        dispatch(SetTotalUsersCountAC(res.data.totalCount))
-    }
+        dispatch(setUsersAC(data.items))
+        dispatch(SetTotalUsersCountAC(data.totalCount))
 }
 
 export const followThunkCreator = (userId: number) => async (dispatch: Dispatch<AppActionsType>) => {
@@ -180,8 +179,9 @@ export const followThunkCreator = (userId: number) => async (dispatch: Dispatch<
     const res = await usersAPI.follow(userId)
     if (res.data.resultCode === 0) {
         dispatch(followSuccessAC(userId))
+        dispatch(ToggleIsFollowingProgressAC(false, userId))
     }
-    dispatch(ToggleIsFollowingProgressAC(false, userId))
+
 }
 
 export const unFollowThunkCreator = (userId: number) => async (dispatch: Dispatch<AppActionsType>) => {
@@ -191,6 +191,6 @@ export const unFollowThunkCreator = (userId: number) => async (dispatch: Dispatc
     const res = await usersAPI.unFollow(userId)
     if (res.data.resultCode === 0) {
         dispatch(unFollowSuccessAC(userId))
+        dispatch(ToggleIsFollowingProgressAC(false, userId))
     }
-    dispatch(ToggleIsFollowingProgressAC(false, userId))
 }
