@@ -6,7 +6,7 @@ import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthCreator, requiredField} from "../../../utils/validators/validators";
 import {Textarea} from "../../../assets/formControls/FormsControls";
 
-const MyPosts: React.FC<MyPostPropsType> = (props) => {
+const MyPosts: React.FC<MyPostPropsType> = React.memo((props) => {
 
     const {addPostCallback, postData} = props
 
@@ -15,6 +15,8 @@ const MyPosts: React.FC<MyPostPropsType> = (props) => {
     const addPost = (values: { newPostText: string }) => {
         addPostCallback(values.newPostText)
     }
+
+    console.log('yo')
 
     return (
         <div className={s.main}>
@@ -27,7 +29,7 @@ const MyPosts: React.FC<MyPostPropsType> = (props) => {
             </div>
         </div>
     );
-};
+});
 
 type FormDataType = {
     newPostText: string

@@ -2,14 +2,13 @@ import React, {useState} from 'react';
 import s from './Header.module.css';
 import {NavLink} from "react-router-dom";
 
-/*const headerClassName = `
-${s.header}
-`
-const logoClassName = `
-${s.Logo}
-`*/
+type HeaderPropsType = {
+    login: string | null,
+    isAuth: boolean,
+    logoutTC?: ()=> void
+}
 
-export const Header = (props: any) => {
+export const Header = (props: HeaderPropsType) => {
 
     const [openMenu, setOpenMenu] = useState(false)
 
