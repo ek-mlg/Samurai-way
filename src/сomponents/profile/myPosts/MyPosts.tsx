@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import Post from "./post/Post";
 import s from "./MyPosts.module.css";
 import {MyPostPropsType} from "./MyPostsContainer";
@@ -10,7 +10,10 @@ const MyPosts: React.FC<MyPostPropsType> = React.memo((props) => {
 
     const {addPostCallback, postData} = props
 
-    const postElement = postData.map((e) => <Post key={e.id} message={e.message} likeCounter={e.likeCounter}/>)
+    const postElement =
+        [...postData]
+            .reverse()
+            .map((e) => <Post key={e.id} message={e.message} likeCounter={e.likeCounter}/>)
 
     const addPost = (values: { newPostText: string }) => {
         addPostCallback(values.newPostText)

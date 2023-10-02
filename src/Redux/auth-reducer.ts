@@ -1,7 +1,6 @@
 import {Dispatch} from "redux";
 import {AppActionsType, AppThunkType} from "./redux-store";
 import {authAPI} from "../api/api";
-import {AxiosResponse} from "axios";
 import {stopSubmit} from "redux-form";
 
 export type AuthActionsType =
@@ -24,7 +23,7 @@ const initialState: InitialStateType = {
 export const AuthReducer = (state: InitialStateType = initialState, action: AuthActionsType): InitialStateType => {
 
     switch (action.type) {
-        case 'SET-USER-DATA':
+        case 'SAMURAI-NETWORK/AUTH/SET-USER-DATA':
             return {
                 ...state,
                 ...action.payload
@@ -37,7 +36,7 @@ export const AuthReducer = (state: InitialStateType = initialState, action: Auth
 
 export const setUserDataAC = (id: string | undefined, email: string | null, login: string | null, isAuth: boolean) => {
     return {
-        type: "SET-USER-DATA",
+        type: "SAMURAI-NETWORK/AUTH/SET-USER-DATA",
         payload: {
             id,
             email,
@@ -69,19 +68,6 @@ export const logoutTC = (): AppThunkType => async dispatch => {
     const res = await authAPI.logout()
     if (res.data.resultCode === 0) {
         dispatch(setUserDataAC(undefined, null, null, false))
-    }
-}
-
-
-/*ниже для себя*/
-export const _logoutTC = (): AppThunkType => {
-    return (dispatch) => {
-        authAPI.logout()
-            .then((response: AxiosResponse) => {
-                if (response.data.resultCode === 0) {
-                    dispatch(setUserDataAC(undefined, null, null, false))
-                }
-            })
     }
 }
 

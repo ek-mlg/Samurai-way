@@ -58,7 +58,7 @@ export const ProfilePageReducer = (state: InitialStateType = initialState, actio
                 status: action.status
             }
         case "UPDATE-STATUS": {
-            return  {...state, status: action.payload.status}
+            return {...state, status: action.payload.status}
         }
 
         case 'SET-USER-PROFILE':
@@ -102,35 +102,24 @@ export const updateStatusAC = (status: string) => {
     } as const
 }
 
-export const getUserProfileTC = (userId: string) => {
-    return (dispatch: Dispatch<AppActionsType>) => {
-        useEffect(() => {
-            profileAPI.getProfile(userId)
-                .then(data => dispatch(setUserProfileAC(data))
-                )
-        }, [userId])
-
+export const getUserProfileTC = (userId: string) => async (dispatch: Dispatch<AppActionsType>) => {
+    try {
+        const data = await profileAPI.getProfile(userId)
+        dispatch(setUserProfileAC(data))
+    } catch (error) {
+        console.error('Some error:', error);
     }
 }
 
-export const getStatusTC = (userId: string) => {
-    return (dispatch: Dispatch<AppActionsType>) => {
 
-        useEffect(() => {
-            profileAPI.getStatus(userId)
-                .then(res => dispatch(setStatusAC(res.data))
-                )
-        }, [userId])
-    }
+export const getStatusTC = (userId: string) => async (dispatch: Dispatch<AppActionsType>) => {
+    const res = await profileAPI.getStatus(userId)
+    dispatch(setStatusAC(res.data))
 }
 
-export const updateStatusTC = (status: string) => {
-    return (dispatch: Dispatch) => {
-        profileAPI.updateStatus(status)
-            .then(response => {
-                if(response.data.resultCode === 0) {
-                    dispatch(updateStatusAC(status))
-                }
-            })
+export const updateStatusTC = (status: string) => async (dispatch: Dispatch) => {
+    const res = await profileAPI.updateStatus(status)
+    if (res.data.resultCode === 0) {
+        dispatch(updateStatusAC(status))
     }
 }

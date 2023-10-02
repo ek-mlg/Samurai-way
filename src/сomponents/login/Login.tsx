@@ -1,6 +1,6 @@
 import React from 'react';
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {Input} from "../../assets/formControls/FormsControls";
+import {InjectedFormProps, reduxForm} from "redux-form";
+import {createField, Input} from "../../assets/formControls/FormsControls";
 import {requiredField} from "../../utils/validators/validators";
 import {connect} from "react-redux";
 import {loginTC} from "../../Redux/auth-reducer";
@@ -20,30 +20,15 @@ type FormDataType = {
     error: boolean
 }
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ( {handleSubmit, error }) => {
 
     return (
         <>
-            <form onSubmit={props.handleSubmit} className={s.form}>
-                <Field placeholder={'Email Address'}
-                       validate={[requiredField]}
-                       name={'login'}
-                       component={Input}
-
-                />
-                <Field placeholder={'Password'}
-                       type={'password'}
-                       validate={[requiredField]}
-                       name={'password'}
-                       component={Input}
-                />
+            <form onSubmit={handleSubmit} className={s.form}>
+                {createField('Email Address',[requiredField], 'login', Input, 'email')}
+                {createField('Password',[requiredField], 'password', Input, 'password')}
                 <div className={s.checkboxRememberContainer}>
-                    <Field type={'checkbox'}
-                           name={'rememberMe'}
-                           component={"input"}
-                           id='myCheckbox'
-                           className={s.checkboxInput}
-                    />
+                    {createField(null,[requiredField], 'rememberMe', "input", 'checkbox', 'myCheckbox', s.checkboxInput)}
                     <label htmlFor='myCheckbox' className={s.checkboxLabel}>
                         <span className={s.remember}>Remember me</span>
                     </label>
@@ -54,7 +39,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
             <a className={s.registerHref} href={'https://social-network.samuraijs.com/signUp'}>
                 <p className={s.register}>Don't have an account? Register here</p>
             </a>
-            {props.error ? <div className={s.formSummaryError}>{props.error}</div> : ''}
+            {error ? <div className={s.formSummaryError}>{error}</div> : ''}
         </>
     );
 };

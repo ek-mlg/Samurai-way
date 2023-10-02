@@ -1,5 +1,6 @@
 import React from 'react';
 import s from './formsControls.module.css';
+import {Field} from "redux-form";
 
 type FormControlPropsType = {
     meta: {
@@ -33,7 +34,7 @@ type InputPropsType = {
     }
 }
 
-const FormControl: React.FC<FormControlPropsType> = ( {children, meta} ) => {
+const FormControl: React.FC<FormControlPropsType> = ({children, meta}) => {
 
     const hasError = meta.touched && meta.error
     return (
@@ -46,21 +47,32 @@ const FormControl: React.FC<FormControlPropsType> = ( {children, meta} ) => {
 }
 
 export const Textarea: React.FC<TextareaPropsType> = (props) => {
-    const { input, meta, ...restProps } = props;
+    const {input, meta, ...restProps} = props;
     return (
         <FormControl meta={meta}>
-            <textarea className={`${meta.touched && meta.error} ? ${s.formControlError} : ''`} {...input} {...restProps} />
+            <textarea
+                className={`${meta.touched && meta.error} ? ${s.formControlError} : ''`} {...input} {...restProps} />
         </FormControl>
     );
 };
 
 export const Input: React.FC<InputPropsType> = (props) => {
-    const { input, meta, ...restProps } = props;
+    const {input, meta, ...restProps} = props;
     return (
         <FormControl meta={meta}>
-            <input className={`${meta.touched && meta.error ? `${s.formControlError} ${s.input}` : s.input}`} {...input} {...restProps} />
+            <input
+                className={`${meta.touched && meta.error ? `${s.formControlError} ${s.input}` : s.input}`} {...input} {...restProps} />
         </FormControl>
     );
 };
 
+export const createField = (placeholder: string | null, validate: any[], name: string, component: any, type: string, id?: string, className?: any) => (
+    <Field placeholder={placeholder}
+           validate={validate}
+           name={name}
+           component={component}
+           type={type}
+           id={id}
+           className={className}
+    />)
 
