@@ -20,15 +20,15 @@ type FormDataType = {
     error: boolean
 }
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ( {handleSubmit, error }) => {
+const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
 
     return (
         <>
             <form onSubmit={handleSubmit} className={s.form}>
-                {createField('Email Address',[requiredField], 'login', Input, 'email')}
-                {createField('Password',[requiredField], 'password', Input, 'password')}
+                {createField('Email Address', [requiredField], 'login', Input, 'email')}
+                {createField('Password', [requiredField], 'password', Input, 'password')}
                 <div className={s.checkboxRememberContainer}>
-                    {createField(null,[requiredField], 'rememberMe', "input", 'checkbox', 'myCheckbox', s.checkboxInput)}
+                    {createField(null, [], 'rememberMe', "input", 'checkbox', 'myCheckbox', s.checkboxInput)}
                     <label htmlFor='myCheckbox' className={s.checkboxLabel}>
                         <span className={s.remember}>Remember me</span>
                     </label>
@@ -82,16 +82,20 @@ const Login: React.FC<LoginPropsType> = ({loginTC, isAuth}) => {
                     <p className={s.info}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                         Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when</p>
                     <div className={s.socialButtonsContainer}>
-                        <a target={'_blank'} href={'https://github.com/ek-mlg'} className={`${s.socialButton} ${s.gitHub}`}>
+                        <a target={'_blank'} href={'https://github.com/ek-mlg'}
+                           className={`${s.socialButton} ${s.gitHub}`}>
                             <i className={`fa-brands fa-github ${s.icon}`}></i>
                         </a>
-                        <a target={'_blank'} href={'https://t.me/break_the_rules_eat_grasses'} className={`${s.socialButton} ${s.telegram}`}>
+                        <a target={'_blank'} href={'https://t.me/break_the_rules_eat_grasses'}
+                           className={`${s.socialButton} ${s.telegram}`}>
                             <i className={`fa-brands fa-telegram ${s.icon}`}></i>
                         </a>
-                        <a target={'_blank'} href={'https://ek-mlg.github.io/portfolio'} className={`${s.socialButton} ${s.site}`}>
+                        <a target={'_blank'} href={'https://ek-mlg.github.io/portfolio'}
+                           className={`${s.socialButton} ${s.site}`}>
                             <i className={`fa-solid fa-link ${s.icon}`}></i>
                         </a>
-                        <a target={'_blank'} href={'www.linkedin.com/in/ek-mlg'} className={`${s.socialButton} ${s.linked}`}>
+                        <a target={'_blank'} href={'www.linkedin.com/in/ek-mlg'}
+                           className={`${s.socialButton} ${s.linked}`}>
                             <i className={`fa-brands fa-linkedin-in ${s.icon}`}></i>
                         </a>
                     </div>

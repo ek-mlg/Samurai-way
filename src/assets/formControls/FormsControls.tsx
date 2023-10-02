@@ -34,13 +34,13 @@ type InputPropsType = {
     }
 }
 
-const FormControl: React.FC<FormControlPropsType> = ({children, meta}) => {
+const FormControl: React.FC<FormControlPropsType> = ({children, meta: {touched, error}}) => {
 
-    const hasError = meta.touched && meta.error
+    const hasError = touched && error
     return (
         <div className={s.inputContainer}>
             {children}
-            {hasError && <span className={s.formControlErrorSpan}>{meta.error}</span>}
+            {hasError && <span className={s.formControlErrorSpan}>{error}</span>}
         </div>
     );
 

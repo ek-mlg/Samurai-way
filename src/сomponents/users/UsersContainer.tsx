@@ -34,11 +34,13 @@ class UsersContainer extends React.Component<UsersPropsType, UsersType> {
 
 
     componentDidMount() {
-    this.props.getUsers(this.props.currentPage, this.props.pageSize)
+        const {currentPage, pageSize} = this.props
+    this.props.getUsers(currentPage, pageSize)
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.getUsers(pageNumber, this.props.pageSize)
+        const {pageSize}= this.props
+        this.props.getUsers(pageNumber, pageSize)
     }
 
     render() {
@@ -76,7 +78,6 @@ const mapStateToProps = (state: AppRootStateType): InitialStateType => {
 }
 
 export default compose<React.ComponentType>(
-    // withAuthRedirect,
     connect(mapStateToProps, {
             follow: followThunkCreator,
             unFollow: unFollowThunkCreator,

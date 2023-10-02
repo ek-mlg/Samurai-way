@@ -1,0 +1,13 @@
+.users {
+    margin-left: 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+.selectedPage {
+    font-weight: bold;
+}
+
+.pageNumber {
+    cursor: pointer;
+}

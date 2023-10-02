@@ -11,24 +11,20 @@ type ProfileInfoPropsType = {
     updateStatus: (status: string) => void
 }
 
-const ProfileInfo = (props: ProfileInfoPropsType) => {
+const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, status, updateStatus}) => {
 
-    if (!props.profile) {
+    if (!profile) {
         return <CircularProgress/>
     }
 
     return (
         <>
-            <div className={"Max_Profile_img"}>
-                {/*<img className={"Profile_img"}
-                 src={"https://cdn.lifehacker.ru/wp-content/uploads/2021/02/pawel-czerwinski-ruJm3dBXCqw-unsplash_1613826124-scaled.jpg"}/>*/}
-            </div>
-            <h1>{props.profile.fullName}</h1>
-            <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
-            <p>about me: {!props.profile.aboutMe ? "info is missing" : props.profile.aboutMe}</p>
-            <p>looking for a job: {props.profile.lookingForAJob ? "yes" : "no"}</p>
+            <h1>{profile.fullName}</h1>
+            <ProfileStatus status={status} updateStatus={updateStatus}/>
+            <p>about me: {!profile.aboutMe ? "info is missing" : profile.aboutMe}</p>
+            <p>looking for a job: {profile.lookingForAJob ? "yes" : "no"}</p>
             <div className={s.avatarContainer}>
-                <img alt={'avatar'} className={s.avatar} src={!props.profile.photos.large ? photo : props.profile.photos.large}/>
+                <img alt={'avatar'} className={s.avatar} src={!profile.photos.large ? photo : profile.photos.large}/>
             </div>
         </>
     );
