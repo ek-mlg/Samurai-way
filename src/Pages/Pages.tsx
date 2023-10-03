@@ -7,7 +7,7 @@ import Settings from "../сomponents/settings/Settings";
 import Preloader from "../сomponents/preloader/Preloader";
 
 const ProfileContainerLazy = React.lazy(() => import('../сomponents/profile/ProfileContainer'))
-const MessagesContainerLazy = React.lazy(() => import('../сomponents/profile/ProfileContainer'))
+const MessagesContainerLazy = React.lazy(() => import('../сomponents/messages/MessagesContainer'))
 const UsersContainerLazy = React.lazy(() => import('../сomponents/users/UsersContainer'))
 const LoginLazy = React.lazy(() => import('../сomponents/login/Login'))
 const Error404Lazy = React.lazy(() => import('../сomponents/error404/Error404'))
