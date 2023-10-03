@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from "./Pagination.module.css";
 
 type PaginationPropsType = {
@@ -33,14 +33,16 @@ const Pagination: React.FC<PaginationPropsType> = (props) => {
     const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1
     const rightPortionPageNumber = portionNumber * portionSize
 
+    useEffect(() => setPortionNumber(Math.ceil(currentPage / portionSize)), [currentPage]);
+
     return (
         <>
             {portionNumber > 1 && <button onClick={() => {
                 setPortionNumber(portionNumber - 1)
             }}>test</button>}
-                {pages
-                    .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
-                    .map((p, index) => {
+            {pages
+                .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
+                .map((p, index) => {
                     return <span className={`${currentPage === p && s.selectedPage} ${s.pageNumber}`}
                                  onClick={() => onPageChanged(p)}
                                  key={index}
@@ -49,7 +51,8 @@ const Pagination: React.FC<PaginationPropsType> = (props) => {
                     </span>
                 })}
             {portionCount > portionNumber && <button onClick={() => {
-                setPortionNumber(portionNumber + 1)}}>test2</button>}
+                setPortionNumber(portionNumber + 1)
+            }}>test2</button>}
         </>
     );
 };

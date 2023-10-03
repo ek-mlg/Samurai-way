@@ -31,8 +31,8 @@ const Users: React.FC<PresentationalUsersPropsType> = (props) => {
 
     return (
         <div className={s.usersBlock}>
-            <Pagination pageSize={pageSize} totalItemsCount={totalItemsCount} currentPage={currentPage} onPageChanged={onPageChanged} portionSize={10}/>
             {users.map(u => <User key={u.id} user={u} followingInProgress={followingInProgress} unFollow={unFollow} follow={follow}/>)}
+            <Pagination pageSize={pageSize} totalItemsCount={totalItemsCount} currentPage={currentPage} onPageChanged={onPageChanged} portionSize={10}/>
         </div>
     );
 };
