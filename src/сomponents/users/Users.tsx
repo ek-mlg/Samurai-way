@@ -10,7 +10,7 @@ type PresentationalUsersPropsType = {
     unFollow: (userId: number) => void,
     users: UsersType[],
     pageSize: number,
-    totalUsersCount: number,
+    totalItemsCount: number,
     currentPage: number,
     toggleFollowingProgress: (isFetching: boolean, userId: number) => void,
     followingInProgress: number[]
@@ -20,7 +20,7 @@ const Users: React.FC<PresentationalUsersPropsType> = (props) => {
 
     const {
         pageSize,
-        totalUsersCount,
+        totalItemsCount,
         currentPage,
         users,
         follow,
@@ -31,7 +31,7 @@ const Users: React.FC<PresentationalUsersPropsType> = (props) => {
 
     return (
         <div className={s.usersBlock}>
-            <Pagination pageSize={pageSize} totalUsersCount={totalUsersCount} currentPage={currentPage} onPageChanged={onPageChanged}/>
+            <Pagination pageSize={pageSize} totalItemsCount={totalItemsCount} currentPage={currentPage} onPageChanged={onPageChanged} portionSize={10}/>
             {users.map(u => <User key={u.id} user={u} followingInProgress={followingInProgress} unFollow={unFollow} follow={follow}/>)}
         </div>
     );

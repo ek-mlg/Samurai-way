@@ -1,4 +1,4 @@
-import {applyMiddleware, combineReducers, legacy_createStore} from "redux";
+import {applyMiddleware, combineReducers, compose, legacy_createStore} from "redux";
 import {ProfileActionsType, ProfilePageReducer} from "./profilePage-reducer";
 import {MessagesPageReducer} from "./messagesPage-reducer";
 import {UsersActionsType, UsersReducer} from "./users-reducer";
@@ -20,5 +20,8 @@ const rootReducer = combineReducers({
     app: AppReducer
 });
 
+const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION__ || compose
+
+export const store = legacy_createStore(rootReducer, composeEnhancers(applyMiddleware(thunkMiddleware)))
+
 export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType | Promise<ReturnType>, AppRootStateType, unknown, AppActionsType>
-export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware))

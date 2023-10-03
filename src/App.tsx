@@ -47,6 +47,7 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => ({
     initialized: state.app.initialized
 })
 
+
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {initializeApp: initializeAppTC}))
     (App);

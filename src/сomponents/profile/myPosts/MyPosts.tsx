@@ -19,8 +19,6 @@ const MyPosts: React.FC<MyPostPropsType> = React.memo((props) => {
         addPostCallback(values.newPostText)
     }
 
-    console.log('yo')
-
     return (
         <div className={s.main}>
             <div className={s.textareaAndPost}>

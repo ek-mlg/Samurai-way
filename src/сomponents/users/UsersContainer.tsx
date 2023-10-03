@@ -35,11 +35,11 @@ class UsersContainer extends React.Component<UsersPropsType, UsersType> {
 
     componentDidMount() {
         const {currentPage, pageSize} = this.props
-    this.props.getUsers(currentPage, pageSize)
+        this.props.getUsers(currentPage, pageSize)
     }
 
     onPageChanged = (pageNumber: number) => {
-        const {pageSize}= this.props
+        const {pageSize} = this.props
         this.props.getUsers(pageNumber, pageSize)
     }
 
@@ -52,7 +52,7 @@ class UsersContainer extends React.Component<UsersPropsType, UsersType> {
             </div> : null}
 
             <Users
-                totalUsersCount={this.props.totalUsersCount}
+                totalItemsCount={this.props.totalUsersCount}
                 pageSize={this.props.pageSize}
                 currentPage={this.props.currentPage}
                 users={this.props.users}
@@ -79,10 +79,10 @@ const mapStateToProps = (state: AppRootStateType): InitialStateType => {
 
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {
-            follow: followThunkCreator,
-            unFollow: unFollowThunkCreator,
-            setCurrentPage: setCurrentPageAC,
-            toggleFollowingProgress: ToggleIsFollowingProgressAC,
-            getUsers: getUsersThunkCreator
-        })
+        follow: followThunkCreator,
+        unFollow: unFollowThunkCreator,
+        setCurrentPage: setCurrentPageAC,
+        toggleFollowingProgress: ToggleIsFollowingProgressAC,
+        getUsers: getUsersThunkCreator
+    })
 )(UsersContainer)
