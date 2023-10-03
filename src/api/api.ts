@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 const instance = axios.create({
     withCredentials: true,
     baseURL: `https://social-network.samuraijs.com/api/1.0/`,
@@ -31,26 +30,28 @@ export const profileAPI = {
         return instance
             .get(`profile/${userId}`)
             .then((response) => response.data)
-            .catch(error => {
-                console.error("Ошибка в методе 'getProfile':", error);
-                throw error;
-            });
+
     },
     getStatus: (userId: string) => {
         return instance
             .get(`profile/status/${userId}`)
-            .catch(error => {
-                console.error("Ошибка в методе 'getStatus':", error);
-                throw error;
-            });
+
     },
     updateStatus: (status: string) => {
         return instance
             .put('profile/status', {status: status})
-            .catch(error => {
-                console.error("Ошибка в методе 'updateStatus':", error);
-                throw error;
-            });
+
+    },
+    savePhoto: (photoFile: File) => {
+        const formData = new FormData()
+        formData.append('image', photoFile)
+        return instance
+            .put('profile/photo', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+
     },
 }
 
@@ -58,26 +59,17 @@ export const authAPI = {
     me: () => {
         return instance
             .get(`auth/me`)
-            .catch(error => {
-                console.error("Ошибка в методе 'me':", error);
-                throw error;
-            });
+
     },
     login: (email: string, password: string, rememberMe: boolean = false) => {
         return instance
             .post(`auth/login`, {email, password, rememberMe})
-            .catch(error => {
-                console.error("Ошибка в методе 'login':", error);
-                throw error;
-            });
+
     },
     logout: () => {
         return instance
             .delete(`auth/login`)
-            .catch(error => {
-                console.error("Ошибка в методе 'logout':", error);
-                throw error;
-            });
+
     }
 }
 

@@ -1,5 +1,4 @@
 import {v1} from "uuid";
-import {useEffect} from "react";
 import {profileAPI} from "../api/api";
 import {Dispatch} from "redux";
 import {AppActionsType} from "./redux-store";
@@ -9,6 +8,7 @@ export type ProfileActionsType =
     | ReturnType<typeof setUserProfileAC>
     | ReturnType<typeof setStatusAC>
     | ReturnType<typeof updateStatusAC>
+    | ReturnType<typeof savePhotoSuccessAC>
 
 
 export type PostType = {
@@ -37,7 +37,12 @@ const initialState = {
         {id: "2", message: "This my first post!", likeCounter: 5},
         {id: "3", message: "React", likeCounter: 23}
     ] as PostType[],
-    profile: null,
+    profile: {
+        photos: { large: "", small: "" },
+        fullName: "",
+        aboutMe: "",
+        lookingForAJob: false
+    } as ProfileType,
     status: ""
 }
 
@@ -68,6 +73,10 @@ export const ProfilePageReducer = (state: InitialStateType = initialState, actio
                 profile: action.profile
             }
 
+        case 'SAVE-PHOTO':
+
+            return {...state, profile: {...state.profile, photos: action.payload.photos}}
+
         default:
             return state;
     }
@@ -77,12 +86,6 @@ export const addPostAC = (newPostText: string) => {
     return {
         type: "ADD-POST",
         newPostText: newPostText
-    } as const
-}
-export const setUserProfileAC = (profile: null) => {
-    return {
-        type: "SET-USER-PROFILE",
-        profile: profile
     } as const
 }
 
@@ -102,13 +105,29 @@ export const updateStatusAC = (status: string) => {
     } as const
 }
 
+export const setUserProfileAC = (profile: ProfileType) => {
+    return {
+        type: "SET-USER-PROFILE",
+        profile: profile
+    } as const
+}
+
+export const savePhotoSuccessAC = (photos: PhotosType) => {
+    debugger
+    return {
+        type: "SAVE-PHOTO",
+        payload: {
+            photos: photos
+        }
+    } as const
+}
+
+
 export const getUserProfileTC = (userId: string) => async (dispatch: Dispatch<AppActionsType>) => {
-    try {
-        const data = await profileAPI.getProfile(userId)
-        dispatch(setUserProfileAC(data))
-    } catch (error) {
-        console.error('Some error:', error);
-    }
+
+    const data = await profileAPI.getProfile(userId)
+    dispatch(setUserProfileAC(data))
+
 }
 
 
@@ -117,9 +136,15 @@ export const getStatusTC = (userId: string) => async (dispatch: Dispatch<AppActi
     dispatch(setStatusAC(res.data))
 }
 
-export const updateStatusTC = (status: string) => async (dispatch: Dispatch) => {
+export const updateStatusTC = (status: string) => async (dispatch: Dispatch<AppActionsType>) => {
     const res = await profileAPI.updateStatus(status)
     if (res.data.resultCode === 0) {
         dispatch(updateStatusAC(status))
+    }
+}
+export const savePhotoTC = (file: File) => async (dispatch: Dispatch<AppActionsType>) => {
+    const res = await profileAPI.savePhoto(file)
+    if (res.data.resultCode === 0) {
+        dispatch(savePhotoSuccessAC(res.data.data.photos))
     }
 }
