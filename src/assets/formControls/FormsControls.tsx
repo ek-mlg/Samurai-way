@@ -66,7 +66,7 @@ export const Input: React.FC<InputPropsType> = (props) => {
     );
 };
 
-export const createField = (placeholder: string | null, validate: any[], name: string, component: any, type: string, id?: string, className?: any) => (
+export const createField = (placeholder: string | null, validate: any[], name: string, component: any, type?: string, id?: string, className?: any) => (
     <Field placeholder={placeholder}
            validate={validate}
            name={name}

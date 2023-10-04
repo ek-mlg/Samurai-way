@@ -1,9 +1,11 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {ProfileType} from "../../../Redux/profilePage-reducer";
 import {CircularProgress} from "@material-ui/core";
 import s from "./ProfileInfo.module.css"
 import ProfileStatus from "./ProfileStatus";
 import photo from '../../../assets/images/avatar.png'
+import {ProfileDataFormType} from "./ProfileDataForm";
+import ProfileDataReduxForm from "./ProfileDataForm";
 
 type ProfileInfoPropsType = {
     profile: ProfileType,
@@ -15,6 +17,9 @@ type ProfileInfoPropsType = {
 
 const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, status, updateStatus, isOwner, savePhoto}) => {
 
+    const [editMode, setEditMode] = useState(false)
+
+
     if (!profile) {
         return <CircularProgress/>
     }
@@ -25,23 +30,32 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, status, updateSta
         }
     }
 
+    const activateDeactivateEditMode = () => {
+        setEditMode(!editMode)
+    }
+
+    const onSubmit = (formData: ProfileDataFormType) => {
+        alert(formData)
+    }
+
     return (
-        <>
-            <ProfileData profile={profile}/>
+        <div style={{margin: '100px'}}>
+            {editMode ? <ProfileDataReduxForm profile={profile} deactivateEditMode={activateDeactivateEditMode} onSubmit={onSubmit} /> : <ProfileData profile={profile} isOwner={isOwner} goToEditMode={activateDeactivateEditMode}/>}
             <ProfileStatus status={status} updateStatus={updateStatus}/>
             <Contacts profile={profile}/>
             <div className={s.avatarContainer}>
                 <img alt={'avatar'} className={s.avatar} src={profile.photos.large || photo}/>
                 {isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}
             </div>
-        </>
+        </div>
     );
 };
 
 
-const ProfileData: React.FC<{ profile: ProfileType }> = ({profile}) => {
+const ProfileData: React.FC<{ profile: ProfileType,  isOwner: boolean, goToEditMode: ()=> void }> = ({profile, isOwner, goToEditMode}) => {
     return (
         <>
+            {isOwner && <button onClick={goToEditMode}>edit</button>}
             <h1>Full name: {profile.fullName}</h1>
             <p><b>looking for a job:</b> {profile.lookingForAJob ? "yes" : "no"}</p>
             {profile.lookingForAJob && <p>My skills: {profile.lookingForAJobDescription}</p>}
@@ -50,16 +64,7 @@ const ProfileData: React.FC<{ profile: ProfileType }> = ({profile}) => {
     )
 }
 
-const ProfileDataForm: React.FC<{ profile: ProfileType }> = ({profile}) => {
-    return (
-        <>
-            <h1>Full name: {profile.fullName}</h1>
-            <p><b>looking for a job:</b> {profile.lookingForAJob ? "yes" : "no"}</p>
-            {profile.lookingForAJob && <p>My skills: {profile.lookingForAJobDescription}</p>}
-            <p><b>about me:</b> {!profile.aboutMe ? "info is missing" : profile.aboutMe}</p>
-        </>
-    )
-}
+
 
 const Contacts: React.FC<{ profile: ProfileType }> = ({profile}) => {
     if (!profile.contacts) {
