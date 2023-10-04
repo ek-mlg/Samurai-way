@@ -10,7 +10,7 @@ type ProfileInfoPropsType = {
     status: string,
     updateStatus: (status: string) => void,
     isOwner: boolean,
-    savePhoto: (photoFile: File) => void
+    savePhoto: (photoFile: File) => void,
 }
 
 const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, status, updateStatus, isOwner, savePhoto}) => {
@@ -27,16 +27,56 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, status, updateSta
 
     return (
         <>
-            <h1>{profile.fullName}</h1>
+            <ProfileData profile={profile}/>
             <ProfileStatus status={status} updateStatus={updateStatus}/>
-            {isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}
-            <p>about me: {!profile.aboutMe ? "info is missing" : profile.aboutMe}</p>
-            <p>looking for a job: {profile.lookingForAJob ? "yes" : "no"}</p>
+            <Contacts profile={profile}/>
             <div className={s.avatarContainer}>
                 <img alt={'avatar'} className={s.avatar} src={profile.photos.large || photo}/>
+                {isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}
             </div>
         </>
     );
 };
+
+
+const ProfileData: React.FC<{ profile: ProfileType }> = ({profile}) => {
+    return (
+        <>
+            <h1>Full name: {profile.fullName}</h1>
+            <p><b>looking for a job:</b> {profile.lookingForAJob ? "yes" : "no"}</p>
+            {profile.lookingForAJob && <p>My skills: {profile.lookingForAJobDescription}</p>}
+            <p><b>about me:</b> {!profile.aboutMe ? "info is missing" : profile.aboutMe}</p>
+        </>
+    )
+}
+
+const ProfileDataForm: React.FC<{ profile: ProfileType }> = ({profile}) => {
+    return (
+        <>
+            <h1>Full name: {profile.fullName}</h1>
+            <p><b>looking for a job:</b> {profile.lookingForAJob ? "yes" : "no"}</p>
+            {profile.lookingForAJob && <p>My skills: {profile.lookingForAJobDescription}</p>}
+            <p><b>about me:</b> {!profile.aboutMe ? "info is missing" : profile.aboutMe}</p>
+        </>
+    )
+}
+
+const Contacts: React.FC<{ profile: ProfileType }> = ({profile}) => {
+    if (!profile.contacts) {
+        return null;
+    }
+    return (
+        <>
+            <p><b>facebook:</b> {profile.contacts.facebook || 'N/A'}</p>
+            <p><b>github:</b> {profile.contacts.github || 'N/A'}</p>
+            <p><b>vk:</b> {profile.contacts.vk || 'N/A'}</p>
+            <p><b>instagram:</b> {profile.contacts.instagram || 'N/A'}</p>
+            <p><b>twitter:</b> {profile.contacts.twitter || 'N/A'}</p>
+            <p><b>mainLink:</b> {profile.contacts.mainLink || 'N/A'}</p>
+            <p><b>website:</b> {profile.contacts.website || 'N/A'}</p>
+            <p><b>youtube:</b> {profile.contacts.youtube || 'N/A'}</p>
+        </>
+    )
+}
 
 export default ProfileInfo;

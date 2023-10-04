@@ -10,7 +10,8 @@ type ProfilePropsType = {
     status: string,
     updateStatus: (status: string) => void
     isOwner: boolean,
-    savePhoto: (photoFile: File) => void
+    savePhoto: (photoFile: File) => void,
+
 }
 
 export const Profile = (props: ProfilePropsType) => {

@@ -31,7 +31,7 @@ const ProfileStatus: React.FC<ProfileStatusPropsType> = ({ status, updateStatus 
                     <div>
                         <span
                             onDoubleClick={activateEditMode}
-                        >{currentStatus || 'status is missing'}</span>
+                        ><b>status:</b> {currentStatus || 'status is missing'}</span>
                     </div>
                     :
                     <div>
