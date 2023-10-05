@@ -13,9 +13,10 @@ type ProfileInfoPropsType = {
     updateStatus: (status: string) => void,
     isOwner: boolean,
     savePhoto: (photoFile: File) => void,
+    saveProfile: (formData: ProfileDataFormType) => void
 }
 
-const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, status, updateStatus, isOwner, savePhoto}) => {
+const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, status, updateStatus, isOwner, savePhoto, saveProfile}) => {
 
     const [editMode, setEditMode] = useState(false)
 
@@ -30,17 +31,22 @@ const ProfileInfo: React.FC<ProfileInfoPropsType> = ({profile, status, updateSta
         }
     }
 
-    const activateDeactivateEditMode = () => {
+    const activateEditMode = () => {
         setEditMode(!editMode)
     }
 
     const onSubmit = (formData: ProfileDataFormType) => {
-        alert(formData)
+        saveProfile(formData)
+        setEditMode(!editMode)
     }
 
     return (
         <div style={{margin: '100px'}}>
-            {editMode ? <ProfileDataReduxForm profile={profile} deactivateEditMode={activateDeactivateEditMode} onSubmit={onSubmit} /> : <ProfileData profile={profile} isOwner={isOwner} goToEditMode={activateDeactivateEditMode}/>}
+            {editMode
+                ?
+                <ProfileDataReduxForm initialValues={profile} onSubmit={onSubmit} />
+                :
+                <ProfileData profile={profile} isOwner={isOwner} goToEditMode={activateEditMode}/>}
             <ProfileStatus status={status} updateStatus={updateStatus}/>
             <Contacts profile={profile}/>
             <div className={s.avatarContainer}>

@@ -1,7 +1,7 @@
 import {v1} from "uuid";
 import {profileAPI} from "../api/api";
 import {Dispatch} from "redux";
-import {AppActionsType} from "./redux-store";
+import {AppActionsType, AppRootStateType, AppThunkType} from "./redux-store";
 
 export type ProfileActionsType =
     ReturnType<typeof addPostAC>
@@ -51,7 +51,7 @@ const initialState = {
         {id: "3", message: "React", likeCounter: 23}
     ] as PostType[],
     profile: {
-        photos: { large: "", small: "" },
+        photos: {large: "", small: ""},
         fullName: "",
         aboutMe: "",
         lookingForAJob: false
@@ -126,7 +126,6 @@ export const setUserProfileAC = (profile: ProfileType) => {
 }
 
 export const savePhotoSuccessAC = (photos: PhotosType) => {
-    debugger
     return {
         type: "SAVE-PHOTO",
         payload: {
@@ -159,5 +158,14 @@ export const savePhotoTC = (file: File) => async (dispatch: Dispatch<AppActionsT
     const res = await profileAPI.savePhoto(file)
     if (res.data.resultCode === 0) {
         dispatch(savePhotoSuccessAC(res.data.data.photos))
+    }
+}
+export const saveProfileTC = (profile: ProfileType): AppThunkType => async (dispatch, getState: () => AppRootStateType) => {
+    const userId = getState().auth.id
+    const res = await profileAPI.saveProfile(profile)
+    if (res.data.resultCode === 0) {
+        if (userId) {
+            await dispatch(getUserProfileTC(userId))
+        }
     }
 }

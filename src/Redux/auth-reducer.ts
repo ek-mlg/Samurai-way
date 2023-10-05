@@ -66,7 +66,6 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): A
     } else {
         const message = res.data.messages.length > 0 ? res.data.messages[0] : "Some error"
         dispatch(stopSubmit('login', {_error: message}))
-
     }
 }
 

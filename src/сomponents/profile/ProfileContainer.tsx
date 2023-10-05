@@ -1,10 +1,18 @@
 import React, {useEffect} from 'react';
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {getStatusTC, getUserProfileTC, ProfileType, savePhotoTC, updateStatusTC} from "../../Redux/profilePage-reducer";
+import {
+    getStatusTC,
+    getUserProfileTC,
+    ProfileType,
+    savePhotoTC,
+    saveProfileTC,
+    updateStatusTC
+} from "../../Redux/profilePage-reducer";
 import {AppRootStateType} from "../../Redux/redux-store";
 import {useParams} from "react-router-dom";
 import {compose} from "redux";
+import {ProfileDataFormType} from "./profileInfo/ProfileDataForm";
 
 type MapStatePropsType = {
     profile: ProfileType,
@@ -17,14 +25,15 @@ type MapDispatchPropsType = {
     getUserProfile: (userId: string | undefined) => void,
     getStatus: (userId: string | undefined) => void,
     updateStatus: (status: string) => void,
-    savePhoto: (photoFile: File) => void
+    savePhoto: (photoFile: File) => void,
+    saveProfile: (formData: ProfileDataFormType) => void
 }
 
 export type ProfilePropsType = MapStatePropsType & MapDispatchPropsType
 
 const ProfileContainer: React.FC<ProfilePropsType> = (props) => {
 
-    const {profile, getUserProfile, getStatus, updateStatus, status, savePhoto} = props
+    const {profile, getUserProfile, getStatus, updateStatus, status, savePhoto, saveProfile} = props
     let {userId} = useParams<{ userId: string }>()
 
     useEffect(() => {
@@ -43,6 +52,7 @@ const ProfileContainer: React.FC<ProfilePropsType> = (props) => {
                     status={status}
                     updateStatus={updateStatus}
                     savePhoto={savePhoto}
+                    saveProfile={saveProfile}
     />
 }
 
@@ -57,6 +67,6 @@ const mapStateToProps = (state: AppRootStateType): MapStatePropsType => {
 }
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {getUserProfile: getUserProfileTC, getStatus: getStatusTC, updateStatus: updateStatusTC, savePhoto: savePhotoTC}),
+    connect(mapStateToProps, {getUserProfile: getUserProfileTC, getStatus: getStatusTC, updateStatus: updateStatusTC, savePhoto: savePhotoTC, saveProfile: saveProfileTC}),
     /*withAuthRedirect*/
 )(ProfileContainer)
