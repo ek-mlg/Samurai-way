@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from "../header/navbar/Navbar";
+import Navbar from "../navbar/Navbar";
 import s from "./Sidebar.module.css"
 
 const Sidebar = () => {

@@ -5,7 +5,7 @@ import {NavLink} from "react-router-dom";
 type HeaderPropsType = {
     login: string | null,
     isAuth: boolean,
-    logoutTC?: ()=> void
+    logoutTC?: () => void
 }
 
 export const Header = (props: HeaderPropsType) => {
@@ -14,7 +14,7 @@ export const Header = (props: HeaderPropsType) => {
 
     const onClickHandlerOpenCloseMenu = () => {
         if (props.isAuth) {
-        setOpenMenu(!openMenu)
+            setOpenMenu(!openMenu)
         }
     }
 
@@ -24,7 +24,8 @@ export const Header = (props: HeaderPropsType) => {
                 <div className={s.headerContainer}>
                     <h2 className={s.title}>Samurai Way</h2>
                     <div
-                        className={`${s.loginContainer} ${openMenu ? s.loginContainerActive : ''}`} onClick={onClickHandlerOpenCloseMenu}>
+                        className={`${s.loginContainer} ${openMenu ? s.loginContainerActive : ''}`}
+                        onClick={onClickHandlerOpenCloseMenu}>
                         {openMenu ? <div className={s.menu}>
                             <span className={s.logout} onClick={props.logoutTC}>Logout</span>
                         </div> : ''}

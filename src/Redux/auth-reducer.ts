@@ -1,29 +1,33 @@
 import {Dispatch} from "redux";
 import {AppActionsType, AppThunkType} from "./redux-store";
-import {authAPI} from "../api/api";
+import {authAPI, securityAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 
 export type AuthActionsType =
-    ReturnType<typeof setUserDataAC>
+    ReturnType<typeof setUserDataAC> |
+    ReturnType<typeof getCaptchaURLAC>
 
 export type InitialStateType = {
     id: undefined | string,
     email: null | string,
     login: null | string,
-    isAuth: boolean
+    isAuth: boolean,
+    captchaUrl: null | string
 }
 
 const initialState: InitialStateType = {
     id: undefined,
     email: null,
     login: null,
-    isAuth: false
+    isAuth: false,
+    captchaUrl: null
 }
 
 export const AuthReducer = (state: InitialStateType = initialState, action: AuthActionsType): InitialStateType => {
 
     switch (action.type) {
         case 'SAMURAI-NETWORK/AUTH/SET-USER-DATA':
+        case 'SAMURAI-NETWORK/AUTH/GET-CAPTCHA-URL-SUCCESS':
             return {
                 ...state,
                 ...action.payload
@@ -46,6 +50,15 @@ export const setUserDataAC = (id: string | undefined, email: string | null, logi
     } as const
 }
 
+export const getCaptchaURLAC = (captchaUrl: string) => {
+    return {
+        type: "SAMURAI-NETWORK/AUTH/GET-CAPTCHA-URL-SUCCESS",
+        payload: {
+            captchaUrl
+        }
+    } as const
+}
+
 export const getAuthUserDataTC = () => async (dispatch: Dispatch<AppActionsType>) => {
     try {
         const res = await authAPI.me()
@@ -58,12 +71,16 @@ export const getAuthUserDataTC = () => async (dispatch: Dispatch<AppActionsType>
     }
 }
 
-export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunkType => async dispatch => {
+export const loginTC = (email: string, password: string, rememberMe: boolean, captcha: string): AppThunkType => async dispatch => {
 
-    const res = await authAPI.login(email, password, rememberMe)
+    const res = await authAPI.login(email, password, rememberMe, captcha)
     if (res.data.resultCode === 0) {
         await dispatch(getAuthUserDataTC())
     } else {
+        if (res.data.resultCode === 10) {
+            debugger
+            await dispatch(getCaptchaURLTC())
+        }
         const message = res.data.messages.length > 0 ? res.data.messages[0] : "Some error"
         dispatch(stopSubmit('login', {_error: message}))
     }
@@ -76,3 +93,9 @@ export const logoutTC = (): AppThunkType => async dispatch => {
     }
 }
 
+export const getCaptchaURLTC = () => async (dispatch: Dispatch<AppActionsType>) => {
+    debugger
+    const res = await securityAPI.getCaptchaURL()
+    const captchaURL = res.data.url
+    dispatch(getCaptchaURLAC(captchaURL))
+}
