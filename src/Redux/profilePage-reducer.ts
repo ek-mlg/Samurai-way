@@ -2,6 +2,7 @@ import {v1} from "uuid";
 import {profileAPI} from "../api/api";
 import {Dispatch} from "redux";
 import {AppActionsType, AppRootStateType, AppThunkType} from "./redux-store";
+import {stopSubmit} from "redux-form";
 
 export type ProfileActionsType =
     ReturnType<typeof addPostAC>
@@ -26,15 +27,8 @@ export type ProfileType = {
     contacts: ContactsType
 }
 
-type ContactsType = {
-    github: string | null,
-    vk: string | null,
-    facebook: string | null,
-    instagram: string | null,
-    twitter: string | null,
-    website: string | null,
-    youtube: string | null,
-    mainLink: string | null
+export type ContactsType = {
+    [key:string] : string | null
 }
 
 type PhotosType = {
@@ -167,5 +161,8 @@ export const saveProfileTC = (profile: ProfileType): AppThunkType => async (disp
         if (userId) {
             await dispatch(getUserProfileTC(userId))
         }
+    } else {
+        dispatch(stopSubmit('editProfile', {_error: res.data.messages[0]}))
+        return Promise.reject(res.data.messages[0])
     }
 }
